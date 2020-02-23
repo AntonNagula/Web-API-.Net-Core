@@ -1,7 +1,6 @@
 ﻿using Interfaces;
 using Data.Repositories;
 using System;
-using System.Collections.Generic;
 
 namespace Data
 {
@@ -9,6 +8,7 @@ namespace Data
     {
         private ProjectDbContext database;
         private UserRepository userRepository;
+        private ICountryRepository coutryRepository;
 
         public UnitOfWork(ProjectDbContext db)
         {
@@ -21,6 +21,15 @@ namespace Data
                 if (userRepository == null)
                     userRepository = new UserRepository(database);
                 return userRepository;
+            }
+        }
+        public ICountryRepository Countries
+        {
+            get
+            {
+                if (coutryRepository == null)
+                    coutryRepository = new CountryRepository(database);
+                return coutryRepository;
             }
         }
 

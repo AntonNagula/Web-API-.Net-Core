@@ -22,6 +22,12 @@ namespace WebApi.Controllers
             obj.obj = users;
             return obj;
         }
+        [HttpGet("{id}")]
+        public User GetUser(int id=0)
+        {
+            User user = service.GetUserByData("anton@mail.ru", "1");
+            return user;
+        }
         [HttpPost]
         public AuthInfo Post([FromBody]AuthInfo obj)
         {
@@ -30,5 +36,17 @@ namespace WebApi.Controllers
             obje.name=user.Name;
             return obje;
         }
+        //[HttpPut]
+        //public Export<User> UpdateUser()
+        //{
+            
+        //    return obj;
+        //}
+        //[HttpDelete]
+        //public AuthInfo DeleteUser([FromBody]User obj)
+        //{
+            
+        //    return obje;
+        //}
     }
 }

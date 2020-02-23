@@ -1,6 +1,7 @@
 ﻿using Core;
 using Data.Mappers;
 using Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,18 +27,9 @@ namespace Data.Repositories
         }
 
         public User Get(string mail, string password)
-        {
-            //Entities.User user = database.Users.FirstOrDefault(x=>x.Email==mail && x.UserPassword==password);
-            //User obj = user != null ? user.ToUserApp() : null;
-            User obj = new User();
-            if (mail == "anton@mail.ru")
-            {                
-                obj.Name = "anton";
-            }
-            else
-            {
-                obj.Name = "tony";
-            }
+        {            
+            Entities.User user = database.Users.Include(x=>x.Role).FirstOrDefault(x => x.Email == mail && x.UserPassword == password);
+            User obj = user != null ? user.ToUserApp() : new User();            
             return obj;
         }
 
@@ -48,19 +40,8 @@ namespace Data.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            List<User> users = new List<User>();
-            for(int i = 0;i < 3;i++)
-            {
-                User user = new User();
-                user.Email = "a";
-                user.Id = i;
-                user.Name = "a";
-                user.Password = "a";
-                user.Role = "a";
-                user.Surname = "a";
-
-                users.Add(user);
-            }
+            List<Entities.User> data = database.Users.Include(c => c.Role).ToList();
+            List<User> users =data.Select(x=>x.ToUserApp()).ToList();
             return users;
 
         }

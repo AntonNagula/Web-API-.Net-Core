@@ -14,6 +14,19 @@ namespace Business
         {
             database = db;
         }
+
+        public void CreateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteUser(int id)
+        {
+            throw new NotImplementedException();
+        }       
+        public User GetUser(int id)
+        {
+            throw new NotImplementedException();
+        }
         public User GetUserByData(string mail, string password)
         {
             return database.Users.Get(mail,password);
@@ -21,6 +34,16 @@ namespace Business
         public IEnumerable<User> GetUsers()
         {
             return database.Users.GetAll();
+        }
+        public void UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public IEnumerable<Country> GetCountries()
+        {
+            return database.Countries.GetAll();
         }
     }
 }
