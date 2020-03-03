@@ -13,6 +13,16 @@
             user.Surname = ob.UserSurname;
             return user;
         }
+        public static Entities.User ToUserDB(this Core.User ob)
+        {
+            Entities.User user = new Entities.User();
+            user.Email = ob.Email;
+            user.UserName = ob.Name;
+            user.UserPassword = ob.Password;
+            user.RoleId = 2;
+            user.UserSurname = ob.Surname;
+            return user;
+        }
         public static Core.Country ToCountryApp(this Entities.Country ob)
         {
             Core.Country user = new Core.Country();

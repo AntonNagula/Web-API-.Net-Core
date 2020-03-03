@@ -17,7 +17,7 @@ namespace Business
 
         public void CreateUser(User user)
         {
-            throw new NotImplementedException();
+            database.Users.Create(user);
         }
         public void DeleteUser(int id)
         {

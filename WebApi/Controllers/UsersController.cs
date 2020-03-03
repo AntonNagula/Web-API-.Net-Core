@@ -36,16 +36,21 @@ namespace WebApi.Controllers
             obje.name=user.Name;
             return obje;
         }
+        [HttpPost("CreateUser")]
+        public void CreateUser([FromBody]User newUser)
+        {                     
+            service.CreateUser(newUser); ;
+        }
         //[HttpPut]
         //public Export<User> UpdateUser()
         //{
-            
+
         //    return obj;
         //}
         //[HttpDelete]
         //public AuthInfo DeleteUser([FromBody]User obj)
         //{
-            
+
         //    return obje;
         //}
     }

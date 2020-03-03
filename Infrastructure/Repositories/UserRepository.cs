@@ -18,7 +18,9 @@ namespace Data.Repositories
         }
         public void Create(User item)
         {
-            throw new NotImplementedException();
+            item.Role = item.Role ?? "пользователей";
+            database.Users.Add(item.ToUserDB());
+            database.SaveChangesAsync();
         }
 
         public void Delete(int id)
