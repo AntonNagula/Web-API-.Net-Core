@@ -27,5 +27,13 @@ namespace WebApi.Controllers
             obj.obj = users;
             return obj;
         }
+        [HttpGet("hotels")]
+        public Export<Hotel> GetHotels()
+        {
+            IEnumerable<Hotel> hotels = service.GetHotels();
+            Export<Hotel> obj = new Export<Hotel>();
+            obj.obj = hotels;
+            return obj;
+        }
     }
 }

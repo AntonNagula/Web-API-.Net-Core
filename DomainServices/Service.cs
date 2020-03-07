@@ -45,5 +45,11 @@ namespace Business
         {
             return database.Countries.GetAll();
         }
+
+
+        public IEnumerable<Hotel> GetHotels()
+        {
+            return database.Hotels.GetAll();
+        }
     }
 }

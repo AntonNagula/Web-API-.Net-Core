@@ -8,7 +8,8 @@ namespace Data
     {
         private ProjectDbContext database;
         private UserRepository userRepository;
-        private ICountryRepository coutryRepository;
+        private CountryRepository coutryRepository;
+        private HotelRepository hotelRepository;
 
         public UnitOfWork(ProjectDbContext db)
         {
@@ -30,6 +31,15 @@ namespace Data
                 if (coutryRepository == null)
                     coutryRepository = new CountryRepository(database);
                 return coutryRepository;
+            }
+        }
+        public IHotelRepository Hotels
+        {
+            get
+            {
+                if (hotelRepository == null)
+                    hotelRepository = new HotelRepository(database);
+                return hotelRepository;
             }
         }
 

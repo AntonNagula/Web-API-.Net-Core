@@ -32,5 +32,32 @@
             user.Img = ob.Img;
             return user;
         }
+        public static Core.Hotel ToHotelApp(this Entities.Hotel ob)
+        {
+            Core.Hotel hotel = new Core.Hotel();
+            hotel.Name = ob.Name;
+            hotel.Country = ob.Country.Name;
+            hotel.facilities = ob.facilities;
+            hotel.HasBeach = ob.HasBeach;
+            hotel.HotelId = ob.HotelId;
+            hotel.Img = ob.Img;
+            hotel.PricePerDay = ob.PricePerDay;
+            hotel.Stars = ob.Stars;
+            return hotel;
+        }
+
+        public static Entities.Hotel ToHotelDB(this Core.Hotel ob)
+        {
+            Entities.Hotel hotel = new Entities.Hotel();
+            hotel.Name = ob.Name;
+            hotel.CountryId = ob.CountryId;
+            hotel.facilities = ob.facilities;
+            hotel.HasBeach = ob.HasBeach;
+            hotel.HotelId = ob.HotelId;
+            hotel.Img = ob.Img;
+            hotel.PricePerDay = ob.PricePerDay;
+            hotel.Stars = ob.Stars;
+            return hotel;
+        }
     }
 }

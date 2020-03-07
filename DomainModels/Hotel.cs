@@ -14,5 +14,6 @@ namespace Core
         public decimal PricePerDay { get; set; }
         public string facilities { get; set; }
         public string Img { get; set; }
+        public int CountryId { get; set; }
     }
 }

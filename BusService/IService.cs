@@ -13,5 +13,7 @@ namespace BusinesService
         void CreateUser(User user);
 
         IEnumerable<Country> GetCountries();
+
+        IEnumerable<Hotel> GetHotels();
     }
 }
