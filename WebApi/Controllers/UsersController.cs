@@ -15,7 +15,7 @@ namespace WebApi.Controllers
             this.service = service;
         }
         [HttpGet]
-        public Export<User> Get()
+        public Export<User> GetUsers()
         {
             IEnumerable<User> users = service.GetUsers();
             Export<User> obj = new Export<User>();
@@ -29,7 +29,7 @@ namespace WebApi.Controllers
             return user;
         }
         [HttpPost]
-        public AuthInfo Post([FromBody]AuthInfo obj)
+        public AuthInfo Auth([FromBody]AuthInfo obj)
         {
             User user = service.GetUserByData(obj.name,"1");
             AuthInfo obje = new AuthInfo();
@@ -39,19 +39,17 @@ namespace WebApi.Controllers
         [HttpPost("CreateUser")]
         public void CreateUser([FromBody]User newUser)
         {                     
-            service.CreateUser(newUser); ;
+            service.CreateUser(newUser);            
         }
-        //[HttpPut]
-        //public Export<User> UpdateUser()
-        //{
-
-        //    return obj;
-        //}
-        //[HttpDelete]
-        //public AuthInfo DeleteUser([FromBody]User obj)
-        //{
-
-        //    return obje;
-        //}
+        [HttpDelete("DeleteUser")]
+        public void DeleteUser([FromBody]User newUser)
+        {
+            service.DeleteUser(newUser);
+        }
+        [HttpPut("UpdateUser")]
+        public void UpdateUser([FromBody]User newUser)
+        {
+            service.UpdateUser(newUser);            
+        }
     }
 }

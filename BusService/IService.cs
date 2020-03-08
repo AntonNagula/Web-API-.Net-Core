@@ -9,7 +9,7 @@ namespace BusinesService
         IEnumerable<User> GetUsers();
         User GetUser(int id);
         void UpdateUser(User user);
-        void DeleteUser(int id);
+        void DeleteUser(User user);
         void CreateUser(User user);
 
         IEnumerable<Country> GetCountries();

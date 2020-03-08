@@ -1,4 +1,6 @@
-﻿namespace Data.Mappers
+﻿using System;
+
+namespace Data.Mappers
 {
     public static class Map
     {
@@ -6,7 +8,7 @@
         {
             Core.User user = new Core.User();
             user.Email = ob.Email;
-            user.Id = ob.UserId;
+            user.Id = ob.UserId.ToString();
             user.Name = ob.UserName;
             user.Password = ob.UserPassword;
             user.Role = ob.Role.RoleName;
@@ -21,6 +23,9 @@
             user.UserPassword = ob.Password;
             user.RoleId = 2;
             user.UserSurname = ob.Surname;
+            int id = Int32.Parse(ob.Id);
+            if(id != 0)
+                user.UserId = id;
             return user;
         }
         public static Core.Country ToCountryApp(this Entities.Country ob)

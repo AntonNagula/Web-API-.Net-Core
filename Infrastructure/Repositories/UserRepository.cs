@@ -23,9 +23,10 @@ namespace Data.Repositories
             database.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public void Delete(User item)
         {
-            throw new NotImplementedException();
+            database.Users.Remove(item.ToUserDB());
+            database.SaveChanges();
         }
 
         public User Get(string mail, string password)
@@ -37,7 +38,7 @@ namespace Data.Repositories
 
         public User Get(int id)
         {
-            throw new NotImplementedException();
+            return database.Users.FirstOrDefault(x => x.UserId == id).ToUserApp();
         }
 
         public IEnumerable<User> GetAll()
@@ -50,7 +51,15 @@ namespace Data.Repositories
 
         public void Update(User item)
         {
-            throw new NotImplementedException();
+            int id = Int32.Parse(item.Id);
+            Entities.User user = database.Users.FirstOrDefault(x => x.UserId == id);
+            user.Email = item.Email;
+            user.UserName = item.Name;
+            user.UserPassword = item.Password;
+            user.RoleId = 2;
+            user.UserSurname = item.Surname;
+            database.Users.Update(user);
+            database.SaveChanges();
         }
     }
 }
