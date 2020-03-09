@@ -9,6 +9,6 @@ namespace Interfaces
         User Get(string mail, string password);
         void Create(User item);
         void Update(User item);
-        void Delete(User item);
+        void Delete(int id);
     }
 }

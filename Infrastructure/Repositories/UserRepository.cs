@@ -23,9 +23,10 @@ namespace Data.Repositories
             database.SaveChangesAsync();
         }
 
-        public void Delete(User item)
+        public void Delete(int id)
         {
-            database.Users.Remove(item.ToUserDB());
+            Entities.User user = database.Users.FirstOrDefault(x => x.UserId == id);
+            database.Users.Remove(user);
             database.SaveChanges();
         }
 
@@ -53,11 +54,7 @@ namespace Data.Repositories
         {
             int id = Int32.Parse(item.Id);
             Entities.User user = database.Users.FirstOrDefault(x => x.UserId == id);
-            user.Email = item.Email;
-            user.UserName = item.Name;
-            user.UserPassword = item.Password;
-            user.RoleId = 2;
-            user.UserSurname = item.Surname;
+            user.UpdateUserDB(item);
             database.Users.Update(user);
             database.SaveChanges();
         }

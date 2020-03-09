@@ -19,9 +19,9 @@ namespace Business
         {
             database.Users.Create(user);
         }
-        public void DeleteUser(User user)
+        public void DeleteUser(int id)
         {
-            database.Users.Delete(user);
+            database.Users.Delete(id);
         }
         public void UpdateUser(User user)
         {

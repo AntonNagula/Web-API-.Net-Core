@@ -23,10 +23,17 @@ namespace Data.Mappers
             user.UserPassword = ob.Password;
             user.RoleId = 2;
             user.UserSurname = ob.Surname;
-            int id = Int32.Parse(ob.Id);
-            if(id != 0)
-                user.UserId = id;
             return user;
+        }
+
+        public static void UpdateUserDB(this Entities.User item,Core.User ob)
+        {
+            Entities.User user = new Entities.User();
+            item.Email = ob.Email;
+            item.UserName = ob.Name;
+            item.UserPassword = ob.Password;
+            item.RoleId = 2;
+            item.UserSurname = ob.Surname;           
         }
         public static Core.Country ToCountryApp(this Entities.Country ob)
         {

@@ -1,6 +1,7 @@
 ﻿using BusinesService;
 using Core;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using WebApi.Export;
 namespace WebApi.Controllers
@@ -23,12 +24,12 @@ namespace WebApi.Controllers
             return obj;
         }
         [HttpGet("{id}")]
-        public User GetUser(int id=0)
+        public User GetUser([FromRoute]int Id)
         {
             User user = service.GetUserByData("anton@mail.ru", "1");
             return user;
         }
-        [HttpPost]
+        [HttpPost("auth")]
         public AuthInfo Auth([FromBody]AuthInfo obj)
         {
             User user = service.GetUserByData(obj.name,"1");
@@ -36,17 +37,17 @@ namespace WebApi.Controllers
             obje.name=user.Name;
             return obje;
         }
-        [HttpPost("CreateUser")]
+        [HttpPost]
         public void CreateUser([FromBody]User newUser)
         {                     
             service.CreateUser(newUser);            
         }
-        [HttpDelete("DeleteUser")]
-        public void DeleteUser([FromBody]User newUser)
+        [HttpDelete("{id}")]
+        public void DeleteUser([FromRoute]int Id)
         {
-            service.DeleteUser(newUser);
+            service.DeleteUser(Id);
         }
-        [HttpPut("UpdateUser")]
+        [HttpPut]
         public void UpdateUser([FromBody]User newUser)
         {
             service.UpdateUser(newUser);            
