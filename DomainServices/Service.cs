@@ -39,7 +39,11 @@ namespace Business
         {
             return database.Users.GetAll();
         }
-        
+
+        public IEnumerable<Role> GetRoles()
+        {
+            return database.Roles.GetAll();
+        }
 
         public IEnumerable<Country> GetCountries()
         {

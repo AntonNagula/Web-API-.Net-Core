@@ -10,6 +10,7 @@ namespace Data
         private UserRepository userRepository;
         private CountryRepository coutryRepository;
         private HotelRepository hotelRepository;
+        private RoleRepository roleRepository;
 
         public UnitOfWork(ProjectDbContext db)
         {
@@ -40,6 +41,15 @@ namespace Data
                 if (hotelRepository == null)
                     hotelRepository = new HotelRepository(database);
                 return hotelRepository;
+            }
+        }
+        public IRoleRepository Roles
+        {
+            get
+            {
+                if (roleRepository == null)
+                    roleRepository = new RoleRepository(database);
+                return roleRepository;
             }
         }
 

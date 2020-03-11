@@ -12,6 +12,8 @@ namespace BusinesService
         void DeleteUser(int id);
         void CreateUser(User user);
 
+        IEnumerable<Role> GetRoles();
+
         IEnumerable<Country> GetCountries();
 
         IEnumerable<Hotel> GetHotels();

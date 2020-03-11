@@ -4,6 +4,21 @@ namespace Data.Mappers
 {
     public static class Map
     {
+        public static Core.Role ToRoleApp(this Entities.Role ob)
+        {
+            Core.Role role = new Core.Role();
+            role.RoleId = ob.RoleId.ToString();
+            role.RoleName = ob.RoleName;
+            return role;
+        }
+        public static Entities.Role ToRoleDB(this Core.Role ob)
+        {
+            Entities.Role role = new Entities.Role();
+            role.RoleName = ob.RoleName;
+            role.RoleId = Int32.Parse(ob.RoleId);
+            return role;
+        }
+
         public static Core.User ToUserApp(this Entities.User ob)
         {
             Core.User user = new Core.User();
@@ -21,14 +36,13 @@ namespace Data.Mappers
             user.Email = ob.Email;
             user.UserName = ob.Name;
             user.UserPassword = ob.Password;
-            user.RoleId = 2;
+            user.RoleId = Int32.Parse(ob.RoleId);
             user.UserSurname = ob.Surname;
             return user;
         }
 
         public static void UpdateUserDB(this Entities.User item,Core.User ob)
-        {
-            Entities.User user = new Entities.User();
+        {            
             item.Email = ob.Email;
             item.UserName = ob.Name;
             item.UserPassword = ob.Password;

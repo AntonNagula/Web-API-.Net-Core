@@ -7,5 +7,6 @@ namespace Interfaces
         IUserRepository Users { get; }
         ICountryRepository Countries { get; }
         IHotelRepository Hotels { get; }
+        IRoleRepository Roles { get; }
     }
 }
