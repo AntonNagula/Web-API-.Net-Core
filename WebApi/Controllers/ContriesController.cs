@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BusinesService;
 using Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Export;
 
@@ -19,6 +15,7 @@ namespace WebApi.Controllers
         {
             this.service = service;
         }
+
         [HttpGet]
         public Export<Country> Get()
         {
@@ -27,13 +24,28 @@ namespace WebApi.Controllers
             obj.obj = users;
             return obj;
         }
-        [HttpGet("hotels")]
-        public Export<Hotel> GetHotels()
+
+        [HttpGet("{id}")]
+        public Country GetUser([FromRoute]int Id)
+        {            
+            return service.GetCountry(Id);
+        }
+        
+        [HttpPost]
+        public void CreateCountry([FromBody]Country country)
         {
-            IEnumerable<Hotel> hotels = service.GetHotels();
-            Export<Hotel> obj = new Export<Hotel>();
-            obj.obj = hotels;
-            return obj;
+            service.CreateCountry(country);
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteUser([FromRoute]int Id)
+        {
+            service.DeleteCountry(Id);
+        }
+        [HttpPut]
+        public void UpdateCountry([FromBody]Country country)
+        {
+            service.UpdateCountry(country);
         }
     }
 }

@@ -16,23 +16,21 @@ namespace Data.Repositories
         }
         public void Create(Country item)
         {
-            throw new NotImplementedException();
+            database.Countries.Add(item.ToCountryDB());
+            database.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Entities.Role role = database.Roles.FirstOrDefault(x => x.RoleId == id);
+            database.Roles.Remove(role);
+            database.SaveChanges();
         }
 
         public Country Get(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Country Get(string mail, string password)
-        {
-            throw new NotImplementedException();
-        }
+            return database.Countries.FirstOrDefault(x => x.CountryId == id).ToCountryApp();
+        }               
 
         public IEnumerable<Country> GetAll()
         {
@@ -40,8 +38,9 @@ namespace Data.Repositories
         }
 
         public void Update(Country item)
-        {
-            throw new NotImplementedException();
+        {               
+            database.Countries.Update(item.ToCountryDB());
+            database.SaveChanges();
         }
     }
 }

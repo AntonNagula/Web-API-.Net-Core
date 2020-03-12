@@ -44,10 +44,33 @@ namespace Business
         {
             return database.Roles.GetAll();
         }
+        public void CreateRole(Role role)
+        {
+            database.Roles.Create(role);
+        }
 
         public IEnumerable<Country> GetCountries()
         {
             return database.Countries.GetAll();
+        }
+        public Country GetCountry(int id)
+        {
+            return database.Countries.Get(id);
+        }
+
+        public void UpdateCountry(Country country)
+        {
+            database.Countries.Update(country);
+        }
+
+        public void DeleteCountry(int id)
+        {
+            database.Countries.Delete(id);
+        }
+
+        public void CreateCountry(Country country)
+        {
+            database.Countries.Create(country);
         }
 
 

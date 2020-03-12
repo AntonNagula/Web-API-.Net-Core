@@ -17,7 +17,8 @@ namespace Data.Repositories
         }
         public void Create(Role item)
         {
-            throw new NotImplementedException();
+            database.Roles.Add(item.ToRoleDB());
+            database.SaveChanges();
         }
 
         public void Delete(int id)

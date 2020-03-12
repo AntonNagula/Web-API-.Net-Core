@@ -15,7 +15,8 @@ namespace Data.Mappers
         {
             Entities.Role role = new Entities.Role();
             role.RoleName = ob.RoleName;
-            role.RoleId = Int32.Parse(ob.RoleId);
+            if(ob.RoleId != null)
+                role.RoleId = Int32.Parse(ob.RoleId);
             return role;
         }
 
@@ -53,7 +54,17 @@ namespace Data.Mappers
         {
             Core.Country user = new Core.Country();
             user.Name = ob.Name;
-            user.CountryId = ob.CountryId;
+            user.CountryId = ob.CountryId.ToString();
+            user.HasSea = ob.HasSea;
+            user.Img = ob.Img;
+            return user;
+        }
+        public static Entities.Country ToCountryDB(this Core.Country ob)
+        {
+            Entities.Country user = new Entities.Country();
+            if(ob.CountryId != null)
+                user.CountryId = Int32.Parse(ob.CountryId);
+            user.Name = ob.Name;           
             user.HasSea = ob.HasSea;
             user.Img = ob.Img;
             return user;

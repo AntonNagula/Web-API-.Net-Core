@@ -27,5 +27,10 @@ namespace WebApi.Controllers
             obj.obj = roles;
             return obj;
         }
+        [HttpPost]
+        public void CreateRole([FromBody]Role newRole)
+        {
+            service.CreateRole(newRole);
+        }
     }
 }
