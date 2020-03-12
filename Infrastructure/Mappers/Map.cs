@@ -28,6 +28,7 @@ namespace Data.Mappers
             user.Name = ob.UserName;
             user.Password = ob.UserPassword;
             user.Role = ob.Role.RoleName;
+            user.RoleId = ob.RoleId.ToString();
             user.Surname = ob.UserSurname;
             return user;
         }
@@ -37,18 +38,10 @@ namespace Data.Mappers
             user.Email = ob.Email;
             user.UserName = ob.Name;
             user.UserPassword = ob.Password;
-            user.RoleId = Int32.Parse(ob.RoleId);
+            if(ob.RoleId != null)
+                user.RoleId = Int32.Parse(ob.RoleId);
             user.UserSurname = ob.Surname;
             return user;
-        }
-
-        public static void UpdateUserDB(this Entities.User item,Core.User ob)
-        {            
-            item.Email = ob.Email;
-            item.UserName = ob.Name;
-            item.UserPassword = ob.Password;
-            item.RoleId = 2;
-            item.UserSurname = ob.Surname;           
         }
         public static Core.Country ToCountryApp(this Entities.Country ob)
         {
