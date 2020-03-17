@@ -17,28 +17,30 @@ namespace Data.Repositories
         }
         public void Create(Hotel item)
         {
-            throw new NotImplementedException();
+            database.Hotels.Add(item.ToHotelDB());
+            database.SaveChanges();
         }
-
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Entities.Hotel hotel = database.Hotels.FirstOrDefault(x => x.HotelId == id);
+            database.Hotels.Remove(hotel);
+            database.SaveChanges();
         }
-
         public Hotel Get(int id)
         {
-            throw new NotImplementedException();
+            return database.Hotels.FirstOrDefault(x => x.HotelId == id).ToHotelApp();
         }
-               
-
         public IEnumerable<Hotel> GetAll()
         {
             return database.Hotels.Include(x => x.Country).Select(x => x.ToHotelApp()).ToList();
         }
-
         public void Update(Hotel item)
         {
-            throw new NotImplementedException();
+            int id = Int32.Parse(item.HotelId);
+            Entities.Hotel hotel = database.Hotels.FirstOrDefault(x => x.HotelId == id);
+            hotel.UpdateHotelDB(item);
+            database.Hotels.Update(hotel);
+            database.SaveChanges();
         }
     }
 }

@@ -78,5 +78,21 @@ namespace Business
         {
             return database.Hotels.GetAll();
         }
+        public Hotel GetHotel(int id)
+        {
+            return database.Hotels.Get(id);
+        }
+        public void UpdateHotel(Hotel hotel)
+        {
+            database.Hotels.Update(hotel);
+        }
+        public void DeleteHotel(int id)
+        {
+            database.Hotels.Delete(id);
+        }
+        public void CreateHotel(Hotel hotel)
+        {
+            database.Hotels.Create(hotel);
+        }
     }
 }

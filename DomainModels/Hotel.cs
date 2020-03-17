@@ -6,14 +6,14 @@ namespace Core
 {
     public class Hotel
     {
-        public int HotelId { get; set; }
+        public string HotelId { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
-        public int Stars { get; set; }
+        public string Stars { get; set; }
         public bool HasBeach { get; set; }
-        public decimal PricePerDay { get; set; }
+        public string PricePerDay { get; set; }
         public string facilities { get; set; }
         public string Img { get; set; }
-        public int CountryId { get; set; }
+        public string CountryId { get; set; }
     }
 }

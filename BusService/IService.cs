@@ -22,5 +22,9 @@ namespace BusinesService
         void CreateCountry(Country country);
 
         IEnumerable<Hotel> GetHotels();
+        Hotel GetHotel(int id);
+        void UpdateHotel(Hotel hotel);
+        void DeleteHotel(int id);
+        void CreateHotel(Hotel hotel);
     }
 }

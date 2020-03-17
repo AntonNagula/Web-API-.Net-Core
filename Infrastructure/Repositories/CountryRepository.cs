@@ -22,8 +22,8 @@ namespace Data.Repositories
 
         public void Delete(int id)
         {
-            Entities.Role role = database.Roles.FirstOrDefault(x => x.RoleId == id);
-            database.Roles.Remove(role);
+            Entities.Country country = database.Countries.FirstOrDefault(x => x.CountryId == id);
+            database.Countries.Remove(country);
             database.SaveChanges();
         }
 
@@ -38,8 +38,11 @@ namespace Data.Repositories
         }
 
         public void Update(Country item)
-        {               
-            database.Countries.Update(item.ToCountryDB());
+        {
+            int id = Int32.Parse(item.CountryId);
+            Entities.Country country = database.Countries.FirstOrDefault(x => x.CountryId == id);
+            country.UpdateCountryDB(item);
+            database.Countries.Update(country);
             database.SaveChanges();
         }
     }
