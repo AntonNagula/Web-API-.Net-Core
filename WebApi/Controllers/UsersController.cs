@@ -24,7 +24,7 @@ namespace WebApi.Controllers
             return obj;
         }
         [HttpGet("{id}")]
-        public User GetUser([FromRoute]int Id)
+        public User GetUser([FromRoute]int id)
         {
             User user = service.GetUserByData("anton@mail.ru", "1");
             return user;
@@ -43,9 +43,9 @@ namespace WebApi.Controllers
             service.CreateUser(newUser);            
         }
         [HttpDelete("{id}")]
-        public void DeleteUser([FromRoute]int Id)
+        public void DeleteUser([FromRoute]int id)
         {
-            service.DeleteUser(Id);
+            service.DeleteUser(id);
         }
         [HttpPut]
         public void UpdateUser([FromBody]User newUser)

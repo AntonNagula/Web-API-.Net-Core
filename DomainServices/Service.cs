@@ -74,6 +74,31 @@ namespace Business
         }
 
 
+        public IEnumerable<City> GetCities()
+        {
+            return database.Cities.GetAll();
+        }
+        public City GetCity(int id)
+        {
+            return database.Cities.Get(id);
+        }
+
+        public void UpdateCity(City city)
+        {
+            database.Cities.Update(city);
+        }
+
+        public void DeleteCity(int id)
+        {
+            database.Cities.Delete(id);
+        }
+
+        public void CreateCity(City city)
+        {
+            database.Cities.Create(city);
+        }
+
+
         public IEnumerable<Hotel> GetHotels()
         {
             return database.Hotels.GetAll();

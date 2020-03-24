@@ -30,9 +30,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public Country GetHotel([FromRoute]int Id)
+        public Country GetHotel([FromRoute]int id)
         {
-            return service.GetCountry(Id);
+            return service.GetCountry(id);
         }
 
         [HttpPost]
@@ -42,9 +42,9 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteHotel([FromRoute]int Id)
+        public void DeleteHotel([FromRoute]int id)
         {
-            service.DeleteHotel(Id);
+            service.DeleteHotel(id);
         }
         [HttpPut]
         public void UpdateHotel([FromBody]Hotel hotel)

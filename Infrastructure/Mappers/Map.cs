@@ -79,11 +79,39 @@ namespace Data.Mappers
             db.Name = app.Name;
             db.Img = app.Img;            
         }
+
+        public static Core.City ToCityApp(this Entities.City ob)
+        {
+            Core.City city = new Core.City();
+            city.Name = ob.Name;
+            city.CityId = ob.CityId.ToString();
+            city.HasSea = ob.HasSea;
+            city.Img = ob.Img;
+            return city;
+        }
+        public static Entities.City ToCityDB(this Core.City ob)
+        {
+            Entities.City city = new Entities.City();
+            if (ob.CityId != null)
+                city.CityId = Int32.Parse(ob.CityId);
+            city.Name = ob.Name;
+            city.HasSea = ob.HasSea;
+            city.Img = ob.Img;
+            return city;
+        }
+        public static void UpdateCityDB(this Entities.City db, Core.City app)
+        {
+            db.HasSea = app.HasSea;
+            db.Name = app.Name;
+            db.Img = app.Img;
+        }
+
         public static Core.Hotel ToHotelApp(this Entities.Hotel ob)
         {
             Core.Hotel hotel = new Core.Hotel();
             hotel.Name = ob.Name;
             hotel.Country = ob.Country.Name;
+            hotel.City = ob.City.Name;
             hotel.facilities = ob.facilities;
             hotel.HasBeach = ob.HasBeach;
             hotel.HotelId = ob.HotelId.ToString();
@@ -99,6 +127,8 @@ namespace Data.Mappers
             hotel.Name = ob.Name;
             if (ob.CountryId != null)
                 hotel.CountryId = Int32.Parse(ob.CountryId);
+            if (ob.CityId != null)
+                hotel.CityId = Int32.Parse(ob.CityId);
             hotel.facilities = ob.facilities;
             hotel.HasBeach = ob.HasBeach;
             hotel.Img = ob.Img;
@@ -115,6 +145,8 @@ namespace Data.Mappers
             hotel.Name = ob.Name;
             if (ob.CountryId != null)
                 hotel.CountryId = Int32.Parse(ob.CountryId);
+            if (ob.CityId != null)
+                hotel.CityId = Int32.Parse(ob.CityId);
             hotel.facilities = ob.facilities;
             hotel.HasBeach = ob.HasBeach;
             hotel.Img = ob.Img;

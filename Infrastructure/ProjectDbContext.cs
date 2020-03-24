@@ -7,6 +7,7 @@ namespace Data
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
 
         public ProjectDbContext()

@@ -26,9 +26,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public Country GetUser([FromRoute]int Id)
+        public Country GetUser([FromRoute]int id)
         {            
-            return service.GetCountry(Id);
+            return service.GetCountry(id);
         }
         
         [HttpPost]
@@ -38,9 +38,9 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteUser([FromRoute]int Id)
+        public void DeleteUser([FromRoute]int id)
         {
-            service.DeleteCountry(Id);
+            service.DeleteCountry(id);
         }
         [HttpPut]
         public void UpdateCountry([FromBody]Country country)

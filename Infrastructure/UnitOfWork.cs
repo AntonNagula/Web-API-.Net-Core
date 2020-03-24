@@ -9,6 +9,7 @@ namespace Data
         private ProjectDbContext database;
         private UserRepository userRepository;
         private CountryRepository coutryRepository;
+        private CityRepository cityRepository;
         private HotelRepository hotelRepository;
         private RoleRepository roleRepository;
 
@@ -32,6 +33,15 @@ namespace Data
                 if (coutryRepository == null)
                     coutryRepository = new CountryRepository(database);
                 return coutryRepository;
+            }
+        }
+        public ICityRepository Cities
+        {
+            get
+            {
+                if (cityRepository == null)
+                    cityRepository = new CityRepository(database);
+                return cityRepository;
             }
         }
         public IHotelRepository Hotels
