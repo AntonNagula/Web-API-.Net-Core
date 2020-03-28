@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business;
 using BusinesService;
+using Core;
 using Data;
 using Data.Repositories;
 using Interfaces;
@@ -46,7 +47,7 @@ namespace WebApi
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IHotelRepository, HotelRepository>();
-            services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<IReadRepository<Role>, RoleRepository>();
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<ITourRepository, TourRepository>();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 
 namespace Interfaces
 {
@@ -8,7 +9,7 @@ namespace Interfaces
         ICountryRepository Countries { get; }
         ICityRepository Cities { get; }
         IHotelRepository Hotels { get; }
-        IRoleRepository Roles { get; }
+        IReadRepository<Role> Roles { get; }
         ITourRepository Tours { get; }
         IVoucherRepository Vouchers { get; }
     }

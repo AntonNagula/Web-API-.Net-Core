@@ -8,37 +8,45 @@ using System.Text;
 
 namespace Data.Repositories
 {
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository : IReadRepository<Role>
     {
         private ProjectDbContext database;
         public RoleRepository(ProjectDbContext db)
         {
             database = db;
         }
-        public void Create(Role item)
-        {
-            database.Roles.Add(item.ToRoleDB());
-            database.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Role Get(int id)
         {
-            throw new NotImplementedException();
+            return database.Roles.FirstOrDefault(x => x.RoleId == id).ToRoleApp();
         }
 
         public IEnumerable<Role> GetAll()
         {
             return database.Roles.Select(x => x.ToRoleApp()).ToList();
         }
-
-        public void Update(Role item)
+        public void Save()
         {
-            throw new NotImplementedException();
+            database.SaveChanges();
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    database.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

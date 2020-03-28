@@ -1,6 +1,7 @@
 ﻿using Interfaces;
 using Data.Repositories;
 using System;
+using Core;
 
 namespace Data
 {
@@ -56,7 +57,7 @@ namespace Data
                 return hotelRepository;
             }
         }
-        public IRoleRepository Roles
+        public IReadRepository<Role> Roles
         {
             get
             {

@@ -43,11 +43,7 @@ namespace Business
         public IEnumerable<Role> GetRoles()
         {
             return database.Roles.GetAll();
-        }
-        public void CreateRole(Role role)
-        {
-            database.Roles.Create(role);
-        }
+        }        
 
         public IEnumerable<Country> GetCountries()
         {
