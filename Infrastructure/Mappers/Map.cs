@@ -19,7 +19,6 @@ namespace Data.Mappers
                 role.RoleId = Int32.Parse(ob.RoleId);
             return role;
         }
-
         public static Core.User ToUserApp(this Entities.User ob)
         {
             Core.User user = new Core.User();
@@ -79,7 +78,6 @@ namespace Data.Mappers
             db.Name = app.Name;
             db.Img = app.Img;            
         }
-
         public static Core.City ToCityApp(this Entities.City ob)
         {
             Core.City city = new Core.City();
@@ -105,7 +103,6 @@ namespace Data.Mappers
             db.Name = app.Name;
             db.Img = app.Img;
         }
-
         public static Core.Hotel ToHotelApp(this Entities.Hotel ob)
         {
             Core.Hotel hotel = new Core.Hotel();
@@ -120,7 +117,6 @@ namespace Data.Mappers
             hotel.Stars = ob.Stars.ToString();
             return hotel;
         }
-
         public static Entities.Hotel ToHotelDB(this Core.Hotel ob)
         {
             Entities.Hotel hotel = new Entities.Hotel();
@@ -156,6 +152,73 @@ namespace Data.Mappers
                 hotel.Stars = Int32.Parse(ob.Stars);
             else
                 hotel.Stars = 3;
+        }
+        public static Core.Voucher ToVoucherApp(this Entities.Voucher ob)
+        {
+            Core.Voucher voucher = new Core.Voucher();
+            voucher.UserName = ob.UserName;
+            voucher.UserSurname = ob.UserSurname;
+            voucher.VoucherId = ob.VoucherId.ToString();
+            voucher.TourId = ob.TourId.ToString();
+            voucher.UserId = ob.UserId.ToString();
+            return voucher;
+        }
+        public static Entities.Voucher ToVoucherDB(this Core.Voucher ob)
+        {
+            Entities.Voucher voucher = new Entities.Voucher();            
+            if (ob.UserId != null)
+                voucher.UserId = Int32.Parse(ob.UserId);
+            if (ob.TourId != null)
+                voucher.TourId = Int32.Parse(ob.TourId);
+            voucher.UserName = ob.UserName;
+            voucher.UserSurname = ob.UserSurname;
+            return voucher;
+        }
+        public static void UpdateVoucherDB(this Entities.Voucher db, Core.Voucher app)
+        {
+            if (app.UserId != null)
+                db.UserId = Int32.Parse(app.UserId);
+            if (app.TourId != null)
+                db.TourId = Int32.Parse(app.TourId);
+            db.UserName = app.UserName;
+            db.UserSurname = app.UserSurname;
+        }
+        public static Core.Tour ToTourApp(this Entities.Tour ob)
+        {
+            Core.Tour tour = new Core.Tour();
+            tour.CityId = ob.CityId.ToString();
+            tour.CountryId = ob.CountryId.ToString();
+            tour.HotelId = ob.HotelId.ToString();
+            tour.TourId = ob.TourId.ToString();
+            tour.Name = ob.Name;
+            tour.Quantity = ob.Quantity.ToString();
+            return tour;
+        }
+        public static Entities.Tour ToTourDB(this Core.Tour ob)
+        {
+            Entities.Tour tour = new Entities.Tour();
+            if (ob.CityId != null)
+                tour.CityId = Int32.Parse(ob.CityId);
+            if (ob.Quantity != null)
+                tour.Quantity = Int32.Parse(ob.Quantity);
+            if (ob.CountryId != null)
+                tour.CountryId = Int32.Parse(ob.CountryId);
+            if (ob.TourId != null)
+                tour.TourId = Int32.Parse(ob.TourId);
+            tour.Name = ob.Name;
+            return tour;
+        }
+        public static void UpdateTourDB(this Entities.Tour db, Core.Tour app)
+        {            
+            if (app.CityId != null)
+                db.CityId = Int32.Parse(app.CityId);
+            if (app.Quantity != null)
+                db.Quantity = Int32.Parse(app.Quantity);
+            if (app.CountryId != null)
+                db.CountryId = Int32.Parse(app.CountryId);
+            if (app.TourId != null)
+                db.TourId = Int32.Parse(app.TourId);
+            db.Name = app.Name;
         }
     }
 }

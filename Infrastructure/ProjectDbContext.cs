@@ -9,6 +9,8 @@ namespace Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Tour> Tours { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
 
         public ProjectDbContext()
         {

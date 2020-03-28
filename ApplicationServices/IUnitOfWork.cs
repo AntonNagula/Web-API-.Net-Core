@@ -9,5 +9,7 @@ namespace Interfaces
         ICityRepository Cities { get; }
         IHotelRepository Hotels { get; }
         IRoleRepository Roles { get; }
+        ITourRepository Tours { get; }
+        IVoucherRepository Vouchers { get; }
     }
 }

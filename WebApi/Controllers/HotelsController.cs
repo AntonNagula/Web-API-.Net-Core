@@ -30,9 +30,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public Country GetHotel([FromRoute]int id)
+        public Hotel GetHotel([FromRoute]int id)
         {
-            return service.GetCountry(id);
+            return service.GetHotel(id);
         }
 
         [HttpPost]

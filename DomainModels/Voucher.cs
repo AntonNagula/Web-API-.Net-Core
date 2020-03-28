@@ -6,12 +6,10 @@ namespace Core
 {
     public class Voucher
     {
-        public int VoucherId { get; set; }
-        public string Hotel { get; set; }
-        public string Country { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Type { get; set; }
-        public bool HasFlight { get; set; }
+        public string VoucherId { get; set; }
+        public string UserName { get; set; }
+        public string UserSurname { get; set; }
+        public string TourId { get; set; }
+        public string UserId { get; set; }
     }
 }

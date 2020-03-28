@@ -26,11 +26,6 @@ namespace WebApi.Controllers
             Export<Role> obj = new Export<Role>();
             obj.obj = roles;
             return obj;
-        }
-        [HttpPost]
-        public void CreateRole([FromBody]Role newRole)
-        {
-            service.CreateRole(newRole);
-        }
+        }        
     }
 }

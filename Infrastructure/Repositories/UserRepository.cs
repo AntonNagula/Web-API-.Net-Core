@@ -11,7 +11,6 @@ namespace Data.Repositories
     public class UserRepository : IUserRepository
     {
         private ProjectDbContext database;
-
         public UserRepository(ProjectDbContext db)
         {
             database = db;

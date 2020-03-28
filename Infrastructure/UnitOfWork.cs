@@ -7,11 +7,14 @@ namespace Data
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private ProjectDbContext database;
+
         private UserRepository userRepository;
         private CountryRepository coutryRepository;
         private CityRepository cityRepository;
         private HotelRepository hotelRepository;
         private RoleRepository roleRepository;
+        private TourRepository tourRepository;
+        private VoucherRepository voucherRepository;
 
         public UnitOfWork(ProjectDbContext db)
         {
@@ -60,6 +63,24 @@ namespace Data
                 if (roleRepository == null)
                     roleRepository = new RoleRepository(database);
                 return roleRepository;
+            }
+        }
+        public ITourRepository Tours
+        {
+            get
+            {
+                if (tourRepository == null)
+                    tourRepository = new TourRepository(database);
+                return tourRepository;
+            }
+        }
+        public IVoucherRepository Vouchers
+        {
+            get
+            {
+                if (voucherRepository == null)
+                    voucherRepository = new VoucherRepository(database);
+                return voucherRepository;
             }
         }
 

@@ -119,5 +119,62 @@ namespace Business
         {
             database.Hotels.Create(hotel);
         }
+
+        public IEnumerable<Voucher> GetVouchers()
+        {
+            return database.Vouchers.GetAll();
+        }
+
+        public Voucher GetVoucher(int id)
+        {
+            return database.Vouchers.Get(id);
+        }
+
+        public void UpdateVoucher(Voucher voucher)
+        {
+            database.Vouchers.Update(voucher);
+        }
+
+        public void DeleteVoucher(int id)
+        {
+            database.Vouchers.Delete(id);
+        }
+
+        public void CreateVoucher(Voucher voucher)
+        {
+            int TourId = Int32.Parse(voucher.TourId);
+            Tour tour = database.Tours.Get(TourId);
+            int quantity = Int32.Parse(tour.Quantity);
+            quantity--;
+            tour.Quantity = quantity.ToString();
+            database.Tours.Update(tour);
+            database.Vouchers.Create(voucher);
+        }
+
+
+        public IEnumerable<Tour> GetTours()
+        {
+            return database.Tours.GetAll();
+        }
+
+        public Tour GetTour(int id)
+        {
+            return database.Tours.Get(id);
+        }
+
+        public void UpdateTour(Tour tour)
+        {
+            database.Tours.Update(tour);
+        }
+
+        public void DeleteTour(int id)
+        {
+            database.Tours.Delete(id); 
+        }
+
+        public void CreateTour(Tour tour)
+        {
+            database.Tours.Create(tour);
+        }
     }
 }

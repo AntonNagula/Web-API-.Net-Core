@@ -40,10 +40,19 @@ namespace WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
-            services.AddSingleton<IService, Service>();
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<ProjectDbContext>();
+            services.AddTransient<IService, Service>();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IHotelRepository, HotelRepository>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<ICityRepository, CityRepository>();
+            services.AddTransient<ICountryRepository, CountryRepository>();
+            services.AddTransient<ITourRepository, TourRepository>();
+            services.AddTransient<IVoucherRepository, VoucherRepository>();
+
+            services.AddTransient<ProjectDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

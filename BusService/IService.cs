@@ -32,5 +32,17 @@ namespace BusinesService
         void UpdateHotel(Hotel hotel);
         void DeleteHotel(int id);
         void CreateHotel(Hotel hotel);
+
+        IEnumerable<Voucher> GetVouchers();
+        Voucher GetVoucher(int id);
+        void UpdateVoucher(Voucher voucher);
+        void DeleteVoucher(int id);
+        void CreateVoucher(Voucher voucher);
+
+        IEnumerable<Tour> GetTours();
+        Tour GetTour(int id);
+        void UpdateTour(Tour tour);
+        void DeleteTour(int id);
+        void CreateTour(Tour tour);
     }
 }

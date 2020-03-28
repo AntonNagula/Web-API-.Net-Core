@@ -28,7 +28,25 @@ namespace Data.Repositories
         }
         public Hotel Get(int id)
         {
-            return database.Hotels.FirstOrDefault(x => x.HotelId == id).ToHotelApp();
+            var hotels = from hotel in database.Hotels
+                         join country in database.Countries on hotel.CountryId equals country.CountryId
+                         join city in database.Cities on hotel.CityId equals city.CityId
+                         where hotel.HotelId == id
+                         select new Hotel
+                         {
+                             Name = hotel.Name,
+                             Country = country.Name,
+                             City = city.Name,
+                             CountryId = hotel.CountryId.ToString(),
+                             CityId = hotel.CityId.ToString(),
+                             facilities = hotel.facilities,
+                             HasBeach = hotel.HasBeach,
+                             HotelId = hotel.HotelId.ToString(),
+                             Img = hotel.Img,
+                             PricePerDay = hotel.PricePerDay.ToString(),
+                             Stars = hotel.Stars.ToString(),
+                         };
+            return hotels.First();
         }
         public IEnumerable<Hotel> GetAll()
         {
