@@ -7,7 +7,7 @@ using System;
 
 namespace Data.Repositories
 {
-    public class TourRepository : ITourRepository
+    public class TourRepository : IGenericRepository<Tour>
     {
         private ProjectDbContext database;
         public TourRepository(ProjectDbContext db)

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Data.Repositories
 {
-    public class CityRepository : ICityRepository
+    public class CityRepository : IGenericRepository<City>
     {
         private ProjectDbContext database;
         public CityRepository(ProjectDbContext db)
@@ -44,6 +44,6 @@ namespace Data.Repositories
             city.UpdateCityDB(item);
             database.Cities.Update(city);
             database.SaveChanges();
-        }
+        }        
     }
 }

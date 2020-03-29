@@ -5,12 +5,12 @@ namespace Interfaces
 {
     public interface IUnitOfWork
     {
-        IUserRepository Users { get; }
-        ICountryRepository Countries { get; }
-        ICityRepository Cities { get; }
-        IHotelRepository Hotels { get; }
+        IGenericRepository<User> Users { get; }
+        IGenericRepository<Country> Countries { get; }
+        IGenericRepository<City> Cities { get; }
+        IGenericRepository<Hotel> Hotels { get; }
         IReadRepository<Role> Roles { get; }
-        ITourRepository Tours { get; }
-        IVoucherRepository Vouchers { get; }
+        IGenericRepository<Tour> Tours { get; }
+        IGenericRepository<Voucher> Vouchers { get; }
     }
 }

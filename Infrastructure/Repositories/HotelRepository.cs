@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
-    public class HotelRepository : IHotelRepository
+    public class HotelRepository : IGenericRepository<Hotel>
     {
         private ProjectDbContext database;
         public HotelRepository(ProjectDbContext db)

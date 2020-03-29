@@ -33,7 +33,7 @@ namespace Business
         }
         public User GetUserByData(string mail, string password)
         {
-            return database.Users.Get(mail,password);
+            return database.Users.Get(1);
         }
         public IEnumerable<User> GetUsers()
         {

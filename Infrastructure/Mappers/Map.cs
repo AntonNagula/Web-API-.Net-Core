@@ -89,9 +89,7 @@ namespace Data.Mappers
         }
         public static Entities.City ToCityDB(this Core.City ob)
         {
-            Entities.City city = new Entities.City();
-            if (ob.CityId != null)
-                city.CityId = Int32.Parse(ob.CityId);
+            Entities.City city = new Entities.City();            
             city.Name = ob.Name;
             city.HasSea = ob.HasSea;
             city.Img = ob.Img;

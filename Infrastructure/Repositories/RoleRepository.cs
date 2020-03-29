@@ -23,30 +23,6 @@ namespace Data.Repositories
         public IEnumerable<Role> GetAll()
         {
             return database.Roles.Select(x => x.ToRoleApp()).ToList();
-        }
-        public void Save()
-        {
-            database.SaveChanges();
-        }
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    database.Dispose();
-                }
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        }       
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Data.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IGenericRepository<User>
     {
         private ProjectDbContext database;
         public UserRepository(ProjectDbContext db)

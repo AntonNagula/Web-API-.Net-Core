@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Data.Repositories
 {
-    public class CountryRepository : ICountryRepository
+    public class CountryRepository : IGenericRepository<Country>
     {
         private ProjectDbContext database;
         public CountryRepository(ProjectDbContext db)

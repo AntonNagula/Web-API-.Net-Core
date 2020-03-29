@@ -21,7 +21,7 @@ namespace Data
         {
             database = db;
         }
-        public IUserRepository Users
+        public IGenericRepository<User> Users
         {
             get
             {
@@ -30,7 +30,7 @@ namespace Data
                 return userRepository;
             }
         }
-        public ICountryRepository Countries
+        public IGenericRepository<Country> Countries
         {
             get
             {
@@ -39,7 +39,7 @@ namespace Data
                 return coutryRepository;
             }
         }
-        public ICityRepository Cities
+        public IGenericRepository<City> Cities
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Data
                 return cityRepository;
             }
         }
-        public IHotelRepository Hotels
+        public IGenericRepository<Hotel> Hotels
         {
             get
             {
@@ -66,7 +66,7 @@ namespace Data
                 return roleRepository;
             }
         }
-        public ITourRepository Tours
+        public IGenericRepository<Tour> Tours
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Data
                 return tourRepository;
             }
         }
-        public IVoucherRepository Vouchers
+        public IGenericRepository<Voucher> Vouchers
         {
             get
             {

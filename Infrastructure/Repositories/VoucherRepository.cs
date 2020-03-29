@@ -6,7 +6,7 @@ using Data.Mappers;
 using System.Linq;
 namespace Data.Repositories
 {
-    public class VoucherRepository : IVoucherRepository
+    public class VoucherRepository : IGenericRepository<Voucher>
     {
         private ProjectDbContext database;
         public VoucherRepository(ProjectDbContext db)

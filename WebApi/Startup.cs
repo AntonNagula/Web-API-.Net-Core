@@ -45,13 +45,13 @@ namespace WebApi
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IHotelRepository, HotelRepository>();
+            services.AddTransient<IGenericRepository<User>, UserRepository>();
+            services.AddTransient<IGenericRepository<Hotel>, HotelRepository>();
             services.AddTransient<IReadRepository<Role>, RoleRepository>();
-            services.AddTransient<ICityRepository, CityRepository>();
-            services.AddTransient<ICountryRepository, CountryRepository>();
-            services.AddTransient<ITourRepository, TourRepository>();
-            services.AddTransient<IVoucherRepository, VoucherRepository>();
+            services.AddTransient<IGenericRepository<City>, CityRepository>();
+            services.AddTransient<IGenericRepository<Country>, CountryRepository>();
+            services.AddTransient<IGenericRepository<Tour>, TourRepository>();
+            services.AddTransient<IGenericRepository<Voucher>, VoucherRepository>();
 
             services.AddTransient<ProjectDbContext>();
         }
