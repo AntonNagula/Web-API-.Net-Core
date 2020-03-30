@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using Data.Mappers;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 namespace Data.Repositories
 {
     public class VoucherRepository : IGenericRepository<Voucher>
@@ -19,6 +21,11 @@ namespace Data.Repositories
             database.SaveChanges();
         }
 
+        public string CreateAndGetId(Voucher item)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             Entities.Voucher voucher = database.Vouchers.FirstOrDefault(x => x.VoucherId == id);
@@ -28,12 +35,12 @@ namespace Data.Repositories
 
         public Voucher Get(int id)
         {
-            return database.Vouchers.FirstOrDefault(x => x.VoucherId == id).ToVoucherApp();
+            return database.Vouchers.Include(x => x.User).FirstOrDefault(x => x.VoucherId == id).ToVoucherApp();
         }
 
         public IEnumerable<Voucher> GetAll()
         {
-            return database.Vouchers.Select(x => x.ToVoucherApp()).ToList();
+            return database.Vouchers.Include(x => x.User).Select(x => x.ToVoucherApp()).ToList();
         }
 
         public void Update(Voucher item)

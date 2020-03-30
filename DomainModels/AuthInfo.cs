@@ -7,6 +7,6 @@ namespace Core
     public class AuthInfo
     {
         public string name { get; set; }
-        public int Password { get; set; }
+        public string password { get; set; }
     }
 }

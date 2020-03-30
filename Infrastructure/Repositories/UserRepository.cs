@@ -22,6 +22,11 @@ namespace Data.Repositories
             database.SaveChangesAsync();
         }
 
+        public string CreateAndGetId(User item)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             Entities.User user = database.Users.FirstOrDefault(x => x.UserId == id);

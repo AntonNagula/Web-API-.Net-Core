@@ -20,6 +20,12 @@ namespace Data.Repositories
             database.Hotels.Add(item.ToHotelDB());
             database.SaveChanges();
         }
+
+        public string CreateAndGetId(Hotel item)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             Entities.Hotel hotel = database.Hotels.FirstOrDefault(x => x.HotelId == id);
@@ -36,7 +42,7 @@ namespace Data.Repositories
                          {
                              Name = hotel.Name,
                              Country = country.Name,
-                             City = city.Name,
+                             City = city.RusName,
                              CountryId = hotel.CountryId.ToString(),
                              CityId = hotel.CityId.ToString(),
                              facilities = hotel.facilities,
@@ -57,7 +63,7 @@ namespace Data.Repositories
                          {
                              Name = hotel.Name,
                              Country = country.Name,
-                             City = city.Name,
+                             City = city.RusName,
                              CountryId = hotel.CountryId.ToString(),
                              CityId = hotel.CityId.ToString(),
                              facilities = hotel.facilities,

@@ -81,32 +81,41 @@ namespace Data.Mappers
         public static Core.City ToCityApp(this Entities.City ob)
         {
             Core.City city = new Core.City();
-            city.Name = ob.Name;
+            city.EngName = ob.EngName;
+            city.RusName = ob.RusName;
             city.CityId = ob.CityId.ToString();
             city.HasSea = ob.HasSea;
             city.Img = ob.Img;
+            city.CountryId = ob.CountryId.ToString();
+            city.Country = ob.Country.Name;
             return city;
         }
         public static Entities.City ToCityDB(this Core.City ob)
         {
-            Entities.City city = new Entities.City();            
-            city.Name = ob.Name;
+            Entities.City city = new Entities.City();
+            city.EngName = ob.EngName;
+            city.RusName = ob.RusName;
             city.HasSea = ob.HasSea;
             city.Img = ob.Img;
+            if (ob.CountryId != null)
+                city.CountryId = Int32.Parse(ob.CountryId);
             return city;
         }
         public static void UpdateCityDB(this Entities.City db, Core.City app)
         {
             db.HasSea = app.HasSea;
-            db.Name = app.Name;
+            db.EngName = app.EngName;
+            db.RusName = app.RusName;
             db.Img = app.Img;
+            if (app.CountryId != null)
+                db.CountryId = Int32.Parse(app.CountryId);
         }
         public static Core.Hotel ToHotelApp(this Entities.Hotel ob)
         {
             Core.Hotel hotel = new Core.Hotel();
             hotel.Name = ob.Name;
             hotel.Country = ob.Country.Name;
-            hotel.City = ob.City.Name;
+            hotel.City = ob.City.RusName;
             hotel.facilities = ob.facilities;
             hotel.HasBeach = ob.HasBeach;
             hotel.HotelId = ob.HotelId.ToString();
@@ -154,8 +163,8 @@ namespace Data.Mappers
         public static Core.Voucher ToVoucherApp(this Entities.Voucher ob)
         {
             Core.Voucher voucher = new Core.Voucher();
-            voucher.UserName = ob.UserName;
-            voucher.UserSurname = ob.UserSurname;
+            voucher.UserName = ob.User.UserName;
+            voucher.UserSurname = ob.User.UserSurname;
             voucher.VoucherId = ob.VoucherId.ToString();
             voucher.TourId = ob.TourId.ToString();
             voucher.UserId = ob.UserId.ToString();
@@ -168,8 +177,6 @@ namespace Data.Mappers
                 voucher.UserId = Int32.Parse(ob.UserId);
             if (ob.TourId != null)
                 voucher.TourId = Int32.Parse(ob.TourId);
-            voucher.UserName = ob.UserName;
-            voucher.UserSurname = ob.UserSurname;
             return voucher;
         }
         public static void UpdateVoucherDB(this Entities.Voucher db, Core.Voucher app)
@@ -178,8 +185,6 @@ namespace Data.Mappers
                 db.UserId = Int32.Parse(app.UserId);
             if (app.TourId != null)
                 db.TourId = Int32.Parse(app.TourId);
-            db.UserName = app.UserName;
-            db.UserSurname = app.UserSurname;
         }
         public static Core.Tour ToTourApp(this Entities.Tour ob)
         {
@@ -188,6 +193,9 @@ namespace Data.Mappers
             tour.CountryId = ob.CountryId.ToString();
             tour.HotelId = ob.HotelId.ToString();
             tour.TourId = ob.TourId.ToString();
+            tour.Country = ob.Country.Name;
+            tour.Hotel = ob.Hotel.Name;
+            tour.City = ob.City.RusName;
             tour.Name = ob.Name;
             tour.Quantity = ob.Quantity.ToString();
             return tour;

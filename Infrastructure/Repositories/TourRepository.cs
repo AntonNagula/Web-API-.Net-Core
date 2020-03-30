@@ -20,6 +20,11 @@ namespace Data.Repositories
             database.SaveChanges();
         }
 
+        public string CreateAndGetId(Tour item)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             Entities.Tour tour = database.Tours.FirstOrDefault(x => x.TourId == id);
@@ -34,7 +39,23 @@ namespace Data.Repositories
 
         public IEnumerable<Tour> GetAll()
         {
-            return database.Tours.Select(x => x.ToTourApp()).ToList();
+            var tours = from tour in database.Tours
+                         join country in database.Countries on tour.CountryId equals country.CountryId
+                         join city in database.Cities on tour.CityId equals city.CityId
+                         join hotel in database.Hotels on tour.HotelId equals hotel.HotelId
+                         select new Tour
+                         {
+                             CityId = city.CityId.ToString(), 
+                             CountryId = country.CountryId.ToString(),
+                             HotelId = hotel.HotelId.ToString(),
+                             TourId = tour.TourId.ToString(),
+                             Country = country.Name,
+                             Hotel = hotel.Name,
+                             City = city.RusName,
+                             Name = tour.Name,
+                             Quantity = tour.Quantity.ToString()
+                         };
+            return tours.ToList();
         }
 
         public void Update(Tour item)

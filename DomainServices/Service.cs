@@ -3,7 +3,10 @@ using Core;
 using Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Text;
+using System.Text.Json;
 
 namespace Business
 {
@@ -33,6 +36,7 @@ namespace Business
         }
         public User GetUserByData(string mail, string password)
         {
+            //
             return database.Users.Get(1);
         }
         public IEnumerable<User> GetUsers()
@@ -113,6 +117,16 @@ namespace Business
         }
         public void CreateHotel(Hotel hotel)
         {
+            if (hotel.Country != null)
+            {
+                Country country = new Country { Name = hotel.Country };
+                hotel.CountryId = database.Countries.CreateAndGetId(country);
+            }
+            if (hotel.City != null)
+            {              
+                City city = new City { CountryId = hotel.CountryId, EngName = GetEngWordFromYandex(hotel.City), HasSea = true, RusName = hotel.City };
+                hotel.CityId = database.Cities.CreateAndGetId(city);
+            }
             database.Hotels.Create(hotel);
         }
 
@@ -171,6 +185,22 @@ namespace Business
         public void CreateTour(Tour tour)
         {
             database.Tours.Create(tour);
+        }
+        private string GetEngWordFromYandex(string ForTranslate)
+        {
+            string EngName;
+
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create("https://translate.yandex.net/api/v1.5/tr.json/translate?"
+                + "key=trnsl.1.1.20200329T092748Z.9c179a9ac941bd1f.219a18997795b43a79d3e192d553568000d7a137"
+                + "&text=" + ForTranslate
+                + "&lang=en");
+
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+            {
+                EngName = JsonSerializer.Deserialize<YandexTranslate>(stream.ReadToEnd()).text[0];
+            }
+            return EngName;
         }
     }
 }

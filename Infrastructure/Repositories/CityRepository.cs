@@ -1,6 +1,7 @@
 ﻿using Core;
 using Data.Mappers;
 using Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,12 @@ namespace Data.Repositories
             database.Cities.Add(item.ToCityDB());
             database.SaveChanges();
         }
+        public string CreateAndGetId(City item)
+        {
+            database.Cities.Add(item.ToCityDB());
+            database.SaveChanges();
+            return database.Cities.FirstOrDefault(x => x.RusName == item.RusName).CityId.ToString();
+        }
 
         public void Delete(int id)
         {
@@ -29,12 +36,12 @@ namespace Data.Repositories
 
         public City Get(int id)
         {
-            return database.Cities.FirstOrDefault(x => x.CityId == id).ToCityApp();
+            return database.Cities.Include(x => x.Country).FirstOrDefault(x => x.CityId == id).ToCityApp();
         }
 
         public IEnumerable<City> GetAll()
         {
-            return database.Cities.Select(x => x.ToCityApp()).ToList();
+            return database.Cities.Include(x => x.Country).Select(x => x.ToCityApp()).ToList();
         }
 
         public void Update(City item)

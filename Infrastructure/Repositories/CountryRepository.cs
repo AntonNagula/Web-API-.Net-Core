@@ -20,6 +20,13 @@ namespace Data.Repositories
             database.SaveChanges();
         }
 
+        public string CreateAndGetId(Country item)
+        {
+            database.Countries.Add(item.ToCountryDB());
+            database.SaveChanges();
+            return database.Countries.FirstOrDefault(x => x.Name == item.Name).CountryId.ToString();
+        }
+
         public void Delete(int id)
         {
             Entities.Country country = database.Countries.FirstOrDefault(x => x.CountryId == id);
