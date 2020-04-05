@@ -158,6 +158,7 @@ namespace Business
             quantity--;
             tour.Quantity = quantity.ToString();
             database.Tours.Update(tour);
+            voucher.UserId = database.Users.GetUserByNameSurname(voucher.UserName, voucher.UserSurname).Id;
             database.Vouchers.Create(voucher);
         }
 

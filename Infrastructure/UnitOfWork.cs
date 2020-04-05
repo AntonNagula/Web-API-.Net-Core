@@ -21,7 +21,7 @@ namespace Data
         {
             database = db;
         }
-        public IGenericRepository<User> Users
+        public IUserRepository Users
         {
             get
             {

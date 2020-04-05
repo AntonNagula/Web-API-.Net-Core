@@ -5,7 +5,7 @@ namespace Interfaces
 {
     public interface IUnitOfWork
     {
-        IGenericRepository<User> Users { get; }
+        IUserRepository Users { get; }
         IGenericRepository<Country> Countries { get; }
         IGenericRepository<City> Cities { get; }
         IGenericRepository<Hotel> Hotels { get; }

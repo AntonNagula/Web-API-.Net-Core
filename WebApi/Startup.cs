@@ -45,7 +45,7 @@ namespace WebApi
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<IGenericRepository<User>, UserRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IGenericRepository<Hotel>, HotelRepository>();
             services.AddTransient<IReadRepository<Role>, RoleRepository>();
             services.AddTransient<IGenericRepository<City>, CityRepository>();

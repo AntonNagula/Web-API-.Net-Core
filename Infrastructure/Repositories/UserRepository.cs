@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Data.Repositories
 {
-    public class UserRepository : IGenericRepository<User>
+    public class UserRepository : IUserRepository
     {
         private ProjectDbContext database;
         public UserRepository(ProjectDbContext db)
@@ -52,6 +52,16 @@ namespace Data.Repositories
             List<User> users =data.Select(x=>x.ToUserApp()).ToList();
             return users;
 
+        }
+
+        public User GetuserByAuthInfo(string login, string password)
+        {
+            return (database.Users.FirstOrDefault(x => x.Email == login && x.UserPassword == password) ?? new Entities.User()).ToUserApp();
+        }
+
+        public User GetUserByNameSurname(string name, string surname)
+        {
+            return (database.Users.FirstOrDefault(x => x.UserName == name && x.UserSurname == surname) ?? new Entities.User()).ToUserApp();
         }
 
         public void Update(User item)
