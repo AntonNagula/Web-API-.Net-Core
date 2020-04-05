@@ -32,10 +32,13 @@ namespace WebApi.Controllers
         [HttpPost("auth")]
         public AuthInfo Auth([FromBody]AuthInfo obj)
         {
-            User user = service.GetUserByData(obj.name,"1");
-            AuthInfo obje = new AuthInfo();
-            obje.name=user.Name;
-            return obje;
+            User user = service.GetUserByData(obj.Login, obj.Password);
+            AuthInfo response = new AuthInfo();
+            response.Login=user.Name;
+            response.Password = user.Password;
+            response.Role = user.Role;
+            response.UserId = user.Id;
+            return response;
         }
         [HttpPost]
         public void CreateUser([FromBody]User newUser)

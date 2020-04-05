@@ -36,8 +36,7 @@ namespace Business
         }
         public User GetUserByData(string mail, string password)
         {
-            //
-            return database.Users.Get(1);
+            return database.Users.GetuserByAuthInfo(mail, password);
         }
         public IEnumerable<User> GetUsers()
         {

@@ -48,15 +48,15 @@ namespace Data.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            List<Entities.User> data = database.Users.Include(c => c.Role).ToList();
-            List<User> users =data.Select(x=>x.ToUserApp()).ToList();
+            List<User> users = database.Users.Include(c => c.Role).Select(x => x.ToUserApp()).ToList();
+            //List<User> users =data.Select(x=>x.ToUserApp()).ToList();
             return users;
 
         }
 
         public User GetuserByAuthInfo(string login, string password)
         {
-            return (database.Users.FirstOrDefault(x => x.Email == login && x.UserPassword == password) ?? new Entities.User()).ToUserApp();
+            return (database.Users.Include(x => x.Role).FirstOrDefault(x => x.Email == login && x.UserPassword == password) ?? new Entities.User()).ToUserApp();
         }
 
         public User GetUserByNameSurname(string name, string surname)
