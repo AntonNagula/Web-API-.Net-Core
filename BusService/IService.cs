@@ -5,7 +5,7 @@ namespace BusinesService
 {
     public interface IService
     {
-        User GetUserByData(string mail, string password);
+        AuthInfo GetUserByData(string mail, string password);
         IEnumerable<User> GetUsers();
         User GetUser(int id);
         void UpdateUser(User user);

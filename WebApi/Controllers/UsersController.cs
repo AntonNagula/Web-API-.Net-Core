@@ -26,18 +26,13 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public User GetUser([FromRoute]int id)
         {
-            User user = service.GetUserByData("anton@mail.ru", "1");
+            User user = service.GetUser(id);
             return user;
         }
         [HttpPost("auth")]
         public AuthInfo Auth([FromBody]AuthInfo obj)
         {
-            User user = service.GetUserByData(obj.Login, obj.Password);
-            AuthInfo response = new AuthInfo();
-            response.Login=user.Name;
-            response.Password = user.Password;
-            response.Role = user.Role;
-            response.UserId = user.Id;
+            AuthInfo response = service.GetUserByData(obj.Login, obj.Password);            
             return response;
         }
         [HttpPost]

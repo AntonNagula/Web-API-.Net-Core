@@ -48,8 +48,8 @@ namespace Data.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            List<User> users = database.Users.Include(c => c.Role).Select(x => x.ToUserApp()).ToList();
-            //List<User> users =data.Select(x=>x.ToUserApp()).ToList();
+            IEnumerable<Entities.User> usersFromDatabase = database.Users.Include(c => c.Role);
+            List<User> users = usersFromDatabase.Select(x=>x.ToUserApp()).ToList();
             return users;
 
         }

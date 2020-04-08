@@ -41,6 +41,8 @@ namespace Data.Mappers
                 user.UserId = Int32.Parse(ob.Id);
             if (ob.RoleId != null)
                 user.RoleId = Int32.Parse(ob.RoleId);
+            else
+                user.RoleId = 3;
             user.UserSurname = ob.Surname;
             return user;
         }
@@ -196,6 +198,7 @@ namespace Data.Mappers
             tour.Country = ob.Country.Name;
             tour.Hotel = ob.Hotel.Name;
             tour.City = ob.City.RusName;
+            tour.EngNameOfCity = ob.City.EngName;
             tour.Name = ob.Name;
             tour.Quantity = ob.Quantity.ToString();
             return tour;

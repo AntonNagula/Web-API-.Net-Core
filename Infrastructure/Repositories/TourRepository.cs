@@ -47,6 +47,7 @@ namespace Data.Repositories
                             Country = country.Name,
                             Hotel = hotel.Name,
                             City = city.RusName,
+                            EngNameOfCity = city.EngName,
                             Name = tour.Name,
                             Quantity = tour.Quantity.ToString()
                         };
@@ -68,6 +69,7 @@ namespace Data.Repositories
                              Country = country.Name,
                              Hotel = hotel.Name,
                              City = city.RusName,
+                             EngNameOfCity = city.EngName,
                              Name = tour.Name,
                              Quantity = tour.Quantity.ToString()
                          };

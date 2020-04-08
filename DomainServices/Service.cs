@@ -34,9 +34,15 @@ namespace Business
         {
             return database.Users.Get(id);
         }
-        public User GetUserByData(string mail, string password)
+        public AuthInfo GetUserByData(string mail, string password)
         {
-            return database.Users.GetuserByAuthInfo(mail, password);
+            User user = database.Users.GetuserByAuthInfo(mail, password);
+            AuthInfo response = new AuthInfo();
+            response.Login = user.Name;
+            response.Password = user.Password;
+            response.Role = user.Role;
+            response.UserId = user.Id;
+            return response;
         }
         public IEnumerable<User> GetUsers()
         {
@@ -156,8 +162,7 @@ namespace Business
             int quantity = Int32.Parse(tour.Quantity);
             quantity--;
             tour.Quantity = quantity.ToString();
-            database.Tours.Update(tour);
-            voucher.UserId = database.Users.GetUserByNameSurname(voucher.UserName, voucher.UserSurname).Id;
+            database.Tours.Update(tour);            
             database.Vouchers.Create(voucher);
         }
 
