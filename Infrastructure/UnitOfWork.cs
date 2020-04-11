@@ -30,7 +30,7 @@ namespace Data
                 return userRepository;
             }
         }
-        public IGenericRepository<Country> Countries
+        public ICountryRepository Countries
         {
             get
             {
@@ -39,7 +39,7 @@ namespace Data
                 return coutryRepository;
             }
         }
-        public IGenericRepository<City> Cities
+        public ICityRepository Cities
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Data
                 return cityRepository;
             }
         }
-        public IGenericRepository<Hotel> Hotels
+        public IHotelRepository Hotels
         {
             get
             {

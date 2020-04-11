@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using Data.Mappers;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
-    public class CountryRepository : IGenericRepository<Country>
+    public class CountryRepository : ICountryRepository
     {
         private ProjectDbContext database;
         public CountryRepository(ProjectDbContext db)
@@ -44,6 +45,21 @@ namespace Data.Repositories
             return database.Countries.Select(x => x.ToCountryApp()).ToList();
         }
 
+        public bool HasCities(int id)
+        {
+            Entities.Country tour = database.Countries.Include(x => x.Cities).FirstOrDefault(x => x.CountryId == id);
+            return tour.Cities.Any();
+        }
+        public bool HasHotels(int id)
+        {
+            Entities.Country tour = database.Countries.Include(x => x.Hotels).FirstOrDefault(x => x.CountryId == id);
+            return tour.Hotels.Any();
+        }
+        public bool HasTours(int id)
+        {
+            Entities.Country tour = database.Countries.Include(x => x.Tours).FirstOrDefault(x => x.CountryId == id);
+            return tour.Tours.Any();
+        }
         public void Update(Country item)
         {
             int id = Int32.Parse(item.CountryId);

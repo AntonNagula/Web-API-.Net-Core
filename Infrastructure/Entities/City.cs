@@ -13,5 +13,7 @@ namespace Data.Entities
         public string Img { get; set; }
         public int CountryId { get; set; }
         public virtual Country Country { get; set; }
+        public List<Hotel> Hotels { get; set; }
+        public List<Tour> Tours { get; set; }
     }
 }

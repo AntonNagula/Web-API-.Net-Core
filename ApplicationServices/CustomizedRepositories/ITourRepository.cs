@@ -6,5 +6,6 @@ namespace Interfaces
     public interface ITourRepository : IGenericRepository<Tour>
     {
         public IEnumerable<Tour> GetActualTours();
+        public bool HasVouchers(int id);
     }
 }

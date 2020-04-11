@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
@@ -18,5 +19,6 @@ namespace Data.Entities
         public virtual City City { get; set; }
         public int HotelId { get; set; }
         public virtual Hotel Hotel { get; set; }
+        public List<Voucher> Vouchers { get; set; }
     }
 }

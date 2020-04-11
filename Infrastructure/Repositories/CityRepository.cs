@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Data.Repositories
 {
-    public class CityRepository : IGenericRepository<City>
+    public class CityRepository : ICityRepository
     {
         private ProjectDbContext database;
         public CityRepository(ProjectDbContext db)
@@ -42,6 +42,18 @@ namespace Data.Repositories
         public IEnumerable<City> GetAll()
         {
             return database.Cities.Include(x => x.Country).Select(x => x.ToCityApp()).ToList();
+        }
+
+        public bool HasHotels(int id)
+        {
+            Entities.City city = database.Cities.Include(x => x.Hotels).FirstOrDefault(x => x.CityId == id);
+            return city.Hotels.Any();
+        }
+
+        public bool HasTours(int id)
+        {
+            Entities.City city = database.Cities.Include(x => x.Tours).FirstOrDefault(x => x.CityId == id);
+            return city.Tours.Any();
         }
 
         public void Update(City item)

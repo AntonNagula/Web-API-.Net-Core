@@ -64,9 +64,12 @@ namespace Business
             database.Countries.Update(country);
         }
 
-        public void DeleteCountry(int id)
+        public bool DeleteCountry(int id)
         {
-            database.Countries.Delete(id);
+            bool hasCities = database.Countries.HasCities(id);
+            if(!hasCities)
+                database.Countries.Delete(id);
+            return !hasCities;
         }
 
         public void CreateCountry(Country country)
@@ -89,9 +92,14 @@ namespace Business
             database.Cities.Update(city);
         }
 
-        public void DeleteCity(int id)
+        public bool DeleteCity(int id)
         {
-            database.Cities.Delete(id);
+            bool hasHotels = database.Cities.HasHotels(id);
+            if(!hasHotels)
+            {
+                database.Cities.Delete(id);
+            }
+            return !hasHotels;
         }
 
         public void CreateCity(City city)
@@ -112,9 +120,12 @@ namespace Business
         {
             database.Hotels.Update(hotel);
         }
-        public void DeleteHotel(int id)
+        public bool DeleteHotel(int id)
         {
-            database.Hotels.Delete(id);
+            bool hasTours = database.Hotels.HasTours(id);
+            if(!hasTours)
+                database.Hotels.Delete(id);
+            return !hasTours;
         }
         public void CreateHotel(Hotel hotel)
         {
@@ -175,30 +186,31 @@ namespace Business
         {
             return database.Tours.Get(id);
         }
-
         public void UpdateTour(Tour tour)
         {
             database.Tours.Update(tour);
         }
-
-        public void DeleteTour(int id)
+        public bool DeleteTour(int id)
         {
-            database.Tours.Delete(id); 
+            bool existVouchers = database.Tours.HasVouchers(id);
+            if(!existVouchers)
+                database.Tours.Delete(id);
+            return !existVouchers;
         }
-
         public void CreateTour(Tour tour)
         {
             database.Tours.Create(tour);
         }
+
+
+
         private string GetEngWordFromYandex(string ForTranslate)
         {
             string EngName;
-
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create("https://translate.yandex.net/api/v1.5/tr.json/translate?"
                 + "key=trnsl.1.1.20200329T092748Z.9c179a9ac941bd1f.219a18997795b43a79d3e192d553568000d7a137"
                 + "&text=" + ForTranslate
                 + "&lang=en");
-
             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
             using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
             {

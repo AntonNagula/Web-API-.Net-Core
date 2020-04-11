@@ -27,7 +27,7 @@ namespace WebApi.Controllers
             obj.obj = tours;
             return obj;
         }
-        [HttpGet("api/tours/actual")]
+        [HttpGet("actual")]
         public Export<Tour> GetActual()
         {
             IEnumerable<Tour> tours = service.GetActualTour();
@@ -49,9 +49,9 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteTour([FromRoute]int id)
+        public bool DeleteTour([FromRoute]int id)
         {
-            service.DeleteTour(id);
+            return service.DeleteTour(id);
         }
         [HttpPut("{id}")]
         public void UpdateTour([FromBody]Tour tour)

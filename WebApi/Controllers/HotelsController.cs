@@ -42,9 +42,9 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteHotel([FromRoute]int id)
+        public bool DeleteHotel([FromRoute]int id)
         {
-            service.DeleteHotel(id);
+            return service.DeleteHotel(id);
         }
         [HttpPut]
         public void UpdateHotel([FromBody]Hotel hotel)

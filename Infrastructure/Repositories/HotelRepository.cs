@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
-    public class HotelRepository : IGenericRepository<Hotel>
+    public class HotelRepository : IHotelRepository
     {
         private ProjectDbContext database;
         public HotelRepository(ProjectDbContext db)
@@ -75,6 +75,13 @@ namespace Data.Repositories
                          };
             return hotels.ToList();
         }
+
+        public bool HasTours(int id)
+        {
+            Entities.Hotel hotel = database.Hotels.Include(x => x.Tours).FirstOrDefault(x => x.HotelId == id);
+            return hotel.Tours.Any();
+        }
+
         public void Update(Hotel item)
         {
             int id = Int32.Parse(item.HotelId);

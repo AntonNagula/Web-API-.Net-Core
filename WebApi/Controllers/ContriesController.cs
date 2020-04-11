@@ -38,9 +38,9 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteUser([FromRoute]int id)
+        public bool DeleteUser([FromRoute]int id)
         {
-            service.DeleteCountry(id);
+            return service.DeleteCountry(id);
         }
         [HttpPut]
         public void UpdateCountry([FromBody]Country country)
