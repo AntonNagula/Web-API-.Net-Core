@@ -19,11 +19,18 @@ namespace WebApi.Controllers
         {
             this.service = service;
         }
-
         [HttpGet]
         public Export<Tour> Get()
         {
             IEnumerable<Tour> tours = service.GetTours();
+            Export<Tour> obj = new Export<Tour>();
+            obj.obj = tours;
+            return obj;
+        }
+        [HttpGet("api/tours/actual")]
+        public Export<Tour> GetActual()
+        {
+            IEnumerable<Tour> tours = service.GetActualTour();
             Export<Tour> obj = new Export<Tour>();
             obj.obj = tours;
             return obj;

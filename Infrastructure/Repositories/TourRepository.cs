@@ -7,7 +7,7 @@ using System;
 
 namespace Data.Repositories
 {
-    public class TourRepository : IGenericRepository<Tour>
+    public class TourRepository : ITourRepository
     {
         private ProjectDbContext database;
         public TourRepository(ProjectDbContext db)
@@ -52,6 +52,31 @@ namespace Data.Repositories
                             Quantity = tour.Quantity.ToString()
                         };
             return Tours.ToList().FirstOrDefault(x => x.TourId == id.ToString());
+        }
+
+        public IEnumerable<Tour> GetActualTours()
+        {
+            var tours = from tour in database.Tours
+                        join country in database.Countries on tour.CountryId equals country.CountryId
+                        join city in database.Cities on tour.CityId equals city.CityId
+                        join hotel in database.Hotels on tour.HotelId equals hotel.HotelId
+                        where tour.Quantity > 0 && tour.StartDate > DateTime.Today
+                        select new Tour
+                        {
+                            CityId = city.CityId.ToString(),
+                            CountryId = country.CountryId.ToString(),
+                            HotelId = hotel.HotelId.ToString(),
+                            TourId = tour.TourId.ToString(),
+                            Country = country.Name,
+                            Hotel = hotel.Name,
+                            City = city.RusName,
+                            EngNameOfCity = city.EngName,
+                            Name = tour.Name,
+                            Quantity = tour.Quantity.ToString(),
+                            EndDate = tour.EndDate.ToString(),
+                            StartDate = tour.StartDate.ToString()
+                        };
+            return tours.ToList();
         }
 
         public IEnumerable<Tour> GetAll()

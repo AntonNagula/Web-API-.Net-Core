@@ -50,7 +50,7 @@ namespace WebApi
             services.AddTransient<IReadRepository<Role>, RoleRepository>();
             services.AddTransient<IGenericRepository<City>, CityRepository>();
             services.AddTransient<IGenericRepository<Country>, CountryRepository>();
-            services.AddTransient<IGenericRepository<Tour>, TourRepository>();
+            services.AddTransient<ITourRepository, TourRepository>();
             services.AddTransient<IGenericRepository<Voucher>, VoucherRepository>();
 
             services.AddTransient<ProjectDbContext>();

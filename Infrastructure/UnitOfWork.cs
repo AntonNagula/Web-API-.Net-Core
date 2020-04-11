@@ -66,7 +66,7 @@ namespace Data
                 return roleRepository;
             }
         }
-        public IGenericRepository<Tour> Tours
+        public ITourRepository Tours
         {
             get
             {

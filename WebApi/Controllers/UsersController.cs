@@ -32,7 +32,7 @@ namespace WebApi.Controllers
         [HttpPost("auth")]
         public AuthInfo Auth([FromBody]AuthInfo obj)
         {
-            AuthInfo response = service.GetUserByData(obj.Login, obj.Password);            
+            AuthInfo response = service.GetIdentityData(obj);            
             return response;
         }
         [HttpPost]

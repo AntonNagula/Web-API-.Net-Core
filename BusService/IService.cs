@@ -5,7 +5,7 @@ namespace BusinesService
 {
     public interface IService
     {
-        AuthInfo GetUserByData(string mail, string password);
+        AuthInfo GetIdentityData(AuthInfo authInfo);
         IEnumerable<User> GetUsers();
         User GetUser(int id);
         void UpdateUser(User user);
@@ -40,6 +40,7 @@ namespace BusinesService
         void CreateVoucher(Voucher voucher);
 
         IEnumerable<Tour> GetTours();
+        IEnumerable<Tour> GetActualTour();
         Tour GetTour(int id);
         void UpdateTour(Tour tour);
         void DeleteTour(int id);

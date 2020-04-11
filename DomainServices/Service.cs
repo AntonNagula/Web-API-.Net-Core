@@ -34,9 +34,9 @@ namespace Business
         {
             return database.Users.Get(id);
         }
-        public AuthInfo GetUserByData(string mail, string password)
+        public AuthInfo GetIdentityData(AuthInfo authInfo)
         {
-            User user = database.Users.GetuserByAuthInfo(mail, password);
+            User user = database.Users.GetuserByAuthInfo(authInfo.Login, authInfo.Password);
             AuthInfo response = MakeResponseAuthInfo(user);
             return response;
         }
@@ -153,13 +153,13 @@ namespace Business
 
         public void CreateVoucher(Voucher voucher)
         {
+            database.Vouchers.Create(voucher);
             int TourId = Int32.Parse(voucher.TourId);
             Tour tour = database.Tours.Get(TourId);
             int quantity = Int32.Parse(tour.Quantity);
             quantity--;
             tour.Quantity = quantity.ToString();
-            database.Tours.Update(tour);            
-            database.Vouchers.Create(voucher);
+            database.Tours.Update(tour);  
         }
 
 
@@ -167,7 +167,10 @@ namespace Business
         {
             return database.Tours.GetAll();
         }
-
+        public IEnumerable<Tour> GetActualTour()
+        {
+            return database.Tours.GetActualTours();
+        }
         public Tour GetTour(int id)
         {
             return database.Tours.Get(id);

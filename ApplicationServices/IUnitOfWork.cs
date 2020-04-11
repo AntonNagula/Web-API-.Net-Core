@@ -10,7 +10,7 @@ namespace Interfaces
         IGenericRepository<City> Cities { get; }
         IGenericRepository<Hotel> Hotels { get; }
         IReadRepository<Role> Roles { get; }
-        IGenericRepository<Tour> Tours { get; }
+        ITourRepository Tours { get; }
         IGenericRepository<Voucher> Vouchers { get; }
     }
 }
