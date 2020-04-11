@@ -71,7 +71,9 @@ namespace Data.Repositories
                              City = city.RusName,
                              EngNameOfCity = city.EngName,
                              Name = tour.Name,
-                             Quantity = tour.Quantity.ToString()
+                             Quantity = tour.Quantity.ToString(),
+                             EndDate = tour.EndDate.ToString(),
+                             StartDate = tour.StartDate.ToString()
                          };
             return tours.ToList();
         }

@@ -43,7 +43,7 @@ namespace Data.Repositories
 
         public User Get(int id)
         {
-            return database.Users.FirstOrDefault(x => x.UserId == id).ToUserApp();
+            return database.Users.Include(x => x.Role).FirstOrDefault(x => x.UserId == id).ToUserApp();
         }
 
         public IEnumerable<User> GetAll()

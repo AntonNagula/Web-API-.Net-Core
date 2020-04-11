@@ -46,7 +46,7 @@ namespace WebApi.Controllers
         {
             service.DeleteTour(id);
         }
-        [HttpPut]
+        [HttpPut("{id}")]
         public void UpdateTour([FromBody]Tour tour)
         {
             service.UpdateTour(tour);

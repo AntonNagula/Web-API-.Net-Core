@@ -201,6 +201,8 @@ namespace Data.Mappers
             tour.EngNameOfCity = ob.City.EngName;
             tour.Name = ob.Name;
             tour.Quantity = ob.Quantity.ToString();
+            tour.StartDate = ob.StartDate.ToString();
+            tour.EndDate = ob.EndDate.ToString();
             return tour;
         }
         public static Entities.Tour ToTourDB(this Core.Tour ob)
@@ -214,7 +216,11 @@ namespace Data.Mappers
                 tour.CountryId = Int32.Parse(ob.CountryId);
             if (ob.TourId != null)
                 tour.TourId = Int32.Parse(ob.TourId);
+            if (ob.HotelId != null)
+                tour.HotelId = Int32.Parse(ob.HotelId);
             tour.Name = ob.Name;
+            tour.StartDate = Convert.ToDateTime(ob.StartDate);
+            tour.EndDate = Convert.ToDateTime(ob.EndDate);
             return tour;
         }
         public static void UpdateTourDB(this Entities.Tour db, Core.Tour app)
@@ -227,6 +233,8 @@ namespace Data.Mappers
                 db.CountryId = Int32.Parse(app.CountryId);
             if (app.TourId != null)
                 db.TourId = Int32.Parse(app.TourId);
+            db.StartDate = Convert.ToDateTime(app.StartDate + " 12:12:12");
+            db.EndDate = Convert.ToDateTime(app.EndDate + " 12:12:12");
             db.Name = app.Name;
         }
     }

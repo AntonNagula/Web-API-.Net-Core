@@ -37,11 +37,7 @@ namespace Business
         public AuthInfo GetUserByData(string mail, string password)
         {
             User user = database.Users.GetuserByAuthInfo(mail, password);
-            AuthInfo response = new AuthInfo();
-            response.Login = user.Name;
-            response.Password = user.Password;
-            response.Role = user.Role;
-            response.UserId = user.Id;
+            AuthInfo response = MakeResponseAuthInfo(user);
             return response;
         }
         public IEnumerable<User> GetUsers()
@@ -206,6 +202,15 @@ namespace Business
                 EngName = JsonSerializer.Deserialize<YandexTranslate>(stream.ReadToEnd()).text[0];
             }
             return EngName;
+        }
+        private AuthInfo MakeResponseAuthInfo(User user)
+        {
+            AuthInfo response = new AuthInfo();
+            response.Login = user.Name;
+            response.Password = user.Password;
+            response.Role = user.Role;
+            response.UserId = user.Id;
+            return response;
         }
     }
 }

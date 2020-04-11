@@ -1,4 +1,7 @@
-﻿namespace Data.Entities
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Data.Entities
 {
     public class Tour
     {
@@ -6,6 +9,10 @@
         public string Name { get; set; } 
         public int Quantity { get; set; } 
         public int CountryId { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime StartDate { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime EndDate { get; set; }
         public virtual Country Country { get; set; }
         public int CityId { get; set; }
         public virtual City City { get; set; }
