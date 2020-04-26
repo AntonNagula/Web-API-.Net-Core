@@ -30,15 +30,18 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public City GetUser([FromRoute]int id)
+        public City GetCity([FromRoute]int id)
         {
             return service.GetCity(id);
         }
 
         [HttpPost]
-        public void CreateCity([FromBody]City city)
+        public IActionResult CreateCity([FromBody]City city)
         {
+            if (city == null)
+                return BadRequest();
             service.CreateCity(city);
+            return Created("jj",city);
         }
 
         [HttpDelete("{id}")]

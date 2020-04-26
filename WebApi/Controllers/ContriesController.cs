@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public Country GetUser([FromRoute]int id)
+        public Country GetContry([FromRoute]int id)
         {            
             return service.GetCountry(id);
         }
