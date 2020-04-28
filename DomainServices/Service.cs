@@ -4,6 +4,7 @@ using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -82,6 +83,10 @@ namespace Business
         {
             return database.Cities.GetAll();
         }
+        public IEnumerable<City> GetCitiesByCountryId(int CountryId)
+        {
+            return database.Cities.GetAll().Where(x => x.CountryId == CountryId.ToString()).ToList();
+        }
         public City GetCity(int id)
         {
             return database.Cities.Get(id);
@@ -111,6 +116,14 @@ namespace Business
         public IEnumerable<Hotel> GetHotels()
         {
             return database.Hotels.GetAll();
+        }
+        public IEnumerable<Hotel> GetHotelsByCountryId(int id)
+        {
+            return database.Hotels.GetAll().Where(x => x.CountryId == id.ToString()).ToList();
+        }
+        public IEnumerable<Hotel> GetHotelsByCityId(int id)
+        {
+            return database.Hotels.GetAll().Where(x => x.CityId == id.ToString()).ToList();
         }
         public Hotel GetHotel(int id)
         {
@@ -178,6 +191,11 @@ namespace Business
         {
             return database.Tours.GetAll();
         }
+        public IEnumerable<Tour> GetActualToursByCountry(int CountryId)
+        {
+            Country country = database.Countries.Get(CountryId);
+            return database.Tours.GetActualTours().Where(x => x.Country == country.Name).ToList();
+        }
         public IEnumerable<Tour> GetActualTour()
         {
             return database.Tours.GetActualTours();
@@ -217,6 +235,20 @@ namespace Business
                 EngName = JsonSerializer.Deserialize<YandexTranslate>(stream.ReadToEnd()).text[0];
             }
             return EngName;
+        }
+        private string GetRusWordFromYandex(string ForTranslate)
+        {
+            string RusName;
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create("https://translate.yandex.net/api/v1.5/tr.json/translate?"
+                + "key=trnsl.1.1.20200329T092748Z.9c179a9ac941bd1f.219a18997795b43a79d3e192d553568000d7a137"
+                + "&text=" + ForTranslate
+                + "&lang=ru");
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+            {
+                RusName = JsonSerializer.Deserialize<YandexTranslate>(stream.ReadToEnd()).text[0];
+            }
+            return RusName;
         }
         private AuthInfo MakeResponseAuthInfo(User user)
         {

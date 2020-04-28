@@ -28,6 +28,22 @@ namespace WebApi.Controllers
             obj.obj = hotels;
             return obj;
         }
+        [HttpGet("country/{id}")]
+        public Export<Hotel> GetByCountryId([FromRoute]int id)
+        {
+            IEnumerable<Hotel> hotels = service.GetHotelsByCountryId(id);
+            Export<Hotel> obj = new Export<Hotel>();
+            obj.obj = hotels;
+            return obj;
+        }
+        [HttpGet("city/{id}")]
+        public Export<Hotel> GetByCityId([FromRoute]int id)
+        {
+            IEnumerable<Hotel> hotels = service.GetHotelsByCityId(id);
+            Export<Hotel> obj = new Export<Hotel>();
+            obj.obj = hotels;
+            return obj;
+        }
 
         [HttpGet("{id}")]
         public Hotel GetHotel([FromRoute]int id)

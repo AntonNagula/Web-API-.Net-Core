@@ -28,6 +28,14 @@ namespace WebApi.Controllers
             obj.obj = users;
             return obj;
         }
+        [HttpGet("country/{id}")]
+        public Export<City> GetByCountry([FromRoute]int id)
+        {
+            IEnumerable<City> users = service.GetCitiesByCountryId(id);
+            Export<City> obj = new Export<City>();
+            obj.obj = users;
+            return obj;
+        }
 
         [HttpGet("{id}")]
         public City GetCity([FromRoute]int id)

@@ -41,6 +41,14 @@ namespace WebApi.Controllers
         {
             return service.GetTour(id);
         }
+        [HttpGet("country/{id}")]
+        public Export<Tour> GetTourByCountryId([FromRoute]int id)
+        {
+            IEnumerable<Tour> tours = service.GetActualToursByCountry(id);
+            Export<Tour> obj = new Export<Tour>();
+            obj.obj = tours;
+            return obj;
+        }
 
         [HttpPost]
         public void CreateTour([FromBody]Tour tour)
