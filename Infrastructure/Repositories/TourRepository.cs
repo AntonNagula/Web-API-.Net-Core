@@ -37,7 +37,6 @@ namespace Data.Repositories
             Entities.Tour tour= database.Tours.Include(x => x.Vouchers).FirstOrDefault(x => x.TourId == id);
             return tour.Vouchers.Any();
         }
-
         public Tour Get(int id)
         {
             var Tours = from tour in database.Tours
@@ -55,7 +54,11 @@ namespace Data.Repositories
                             City = city.RusName,
                             EngNameOfCity = city.EngName,
                             Name = tour.Name,
-                            Quantity = tour.Quantity.ToString()
+                            Quantity = tour.Quantity.ToString(),
+                            NumberOfNights = tour.NumberOfNights.ToString(),
+                            PriceTransfer = tour.PriceTransfer.ToString(),
+                            Price = tour.Price.ToString(),
+                            Markup = tour.Markup.ToString()
                         };
             return Tours.ToList().FirstOrDefault(x => x.TourId == id.ToString());
         }
@@ -79,7 +82,11 @@ namespace Data.Repositories
                             Name = tour.Name,
                             Quantity = tour.Quantity.ToString(),
                             EndDate = tour.EndDate.ToString(),
-                            StartDate = tour.StartDate.ToString()
+                            StartDate = tour.StartDate.ToString(),
+                            NumberOfNights = tour.NumberOfNights.ToString(),
+                            PriceTransfer = tour.PriceTransfer.ToString(),
+                            Price = tour.Price.ToString(),
+                            Markup = tour.Markup.ToString()
                         };
             return tours.ToList();
         }
@@ -103,7 +110,11 @@ namespace Data.Repositories
                              Name = tour.Name,
                              Quantity = tour.Quantity.ToString(),
                              EndDate = tour.EndDate.ToString(),
-                             StartDate = tour.StartDate.ToString()
+                             StartDate = tour.StartDate.ToString(),
+                             NumberOfNights = tour.NumberOfNights.ToString(),
+                             PriceTransfer = tour.PriceTransfer.ToString(),
+                             Price = tour.Price.ToString(),
+                             Markup = tour.Markup.ToString()
                          };
             return tours.ToList();
         }
