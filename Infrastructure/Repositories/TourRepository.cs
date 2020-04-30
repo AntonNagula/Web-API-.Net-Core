@@ -58,7 +58,10 @@ namespace Data.Repositories
                             NumberOfNights = tour.NumberOfNights.ToString(),
                             PriceTransfer = tour.PriceTransfer.ToString(),
                             Price = tour.Price.ToString(),
-                            Markup = tour.Markup.ToString()
+                            Markup = tour.Markup.ToString(),
+                            EndDate = tour.EndDate.ToString(),
+                            StartDate = tour.StartDate.ToString(),
+                            PriceHotel = hotel.PricePerDay.ToString()
                         };
             return Tours.ToList().FirstOrDefault(x => x.TourId == id.ToString());
         }
@@ -86,7 +89,8 @@ namespace Data.Repositories
                             NumberOfNights = tour.NumberOfNights.ToString(),
                             PriceTransfer = tour.PriceTransfer.ToString(),
                             Price = tour.Price.ToString(),
-                            Markup = tour.Markup.ToString()
+                            Markup = tour.Markup.ToString(),
+                            PriceHotel = hotel.PricePerDay.ToString()
                         };
             return tours.ToList();
         }
@@ -114,7 +118,8 @@ namespace Data.Repositories
                              NumberOfNights = tour.NumberOfNights.ToString(),
                              PriceTransfer = tour.PriceTransfer.ToString(),
                              Price = tour.Price.ToString(),
-                             Markup = tour.Markup.ToString()
+                             Markup = tour.Markup.ToString(),
+                             PriceHotel = hotel.PricePerDay.ToString()
                          };
             return tours.ToList();
         }
