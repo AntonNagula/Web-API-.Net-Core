@@ -172,6 +172,8 @@ namespace Data.Mappers
             Core.Voucher voucher = new Core.Voucher();
             voucher.UserName = ob.User.UserName;
             voucher.UserSurname = ob.User.UserSurname;
+            voucher.PassportNumber = ob.PassportNumber;
+            voucher.PassportSeries = ob.PassportSeries;
             voucher.VoucherId = ob.VoucherId.ToString();
             voucher.TourId = ob.TourId.ToString();
             voucher.UserId = ob.UserId.ToString();
@@ -184,6 +186,8 @@ namespace Data.Mappers
                 voucher.UserId = Int32.Parse(ob.UserId);
             if (ob.TourId != null)
                 voucher.TourId = Int32.Parse(ob.TourId);
+            voucher.PassportNumber = ob.PassportNumber;
+            voucher.PassportSeries = ob.PassportSeries;
             return voucher;
         }
         public static void UpdateVoucherDB(this Entities.Voucher db, Core.Voucher app)
@@ -192,6 +196,8 @@ namespace Data.Mappers
                 db.UserId = Int32.Parse(app.UserId);
             if (app.TourId != null)
                 db.TourId = Int32.Parse(app.TourId);
+            db.PassportNumber = app.PassportNumber;
+            db.PassportSeries = app.PassportSeries;
         }
 
         public static Core.Tour ToTourApp(this Entities.Tour ob)
@@ -206,9 +212,10 @@ namespace Data.Mappers
             tour.City = ob.City.RusName;
             tour.EngNameOfCity = ob.City.EngName;
             tour.Name = ob.Name;
-            tour.Quantity = ob.Quantity.ToString();
-            tour.StartDate = ob.StartDate.ToString();
-            tour.EndDate = ob.EndDate.ToString();
+            tour.StartQuantity = ob.StartQuantity.ToString();
+            tour.EndQuantity = ob.EndQuantity.ToString();
+            tour.StartDate = ob.StartDate.ToString("dd/MM/yyyy");
+            tour.EndDate = ob.EndDate.ToString("dd/MM/yyyy");
             tour.NumberOfNights = ob.NumberOfNights.ToString();
             tour.PriceTransfer = ob.PriceTransfer.ToString();
             tour.Price = ob.Price.ToString();
@@ -220,8 +227,10 @@ namespace Data.Mappers
             Entities.Tour tour = new Entities.Tour();
             if (ob.CityId != null)
                 tour.CityId = Int32.Parse(ob.CityId);
-            if (ob.Quantity != null)
-                tour.Quantity = Int32.Parse(ob.Quantity);
+            if (ob.EndQuantity != null)
+                tour.EndQuantity = Int32.Parse(ob.EndQuantity);
+            if (ob.StartQuantity != null)
+                tour.StartQuantity = Int32.Parse(ob.StartQuantity);
             if (ob.CountryId != null)
                 tour.CountryId = Int32.Parse(ob.CountryId);
             if (ob.TourId != null)
@@ -245,8 +254,10 @@ namespace Data.Mappers
         {            
             if (app.CityId != null)
                 db.CityId = Int32.Parse(app.CityId);
-            if (app.Quantity != null)
-                db.Quantity = Int32.Parse(app.Quantity);
+            if (app.StartQuantity != null)
+                db.StartQuantity = Int32.Parse(app.StartQuantity);
+            if (app.EndQuantity != null)
+                db.EndQuantity = Int32.Parse(app.EndQuantity);
             if (app.CountryId != null)
                 db.CountryId = Int32.Parse(app.CountryId);
             if (app.TourId != null)

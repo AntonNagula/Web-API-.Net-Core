@@ -6,7 +6,8 @@ namespace Core
     {
         public string TourId { get; set; }
         public string Name { get; set; }
-        public string Quantity { get; set; }
+        public string StartQuantity { get; set; }
+        public string EndQuantity { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string EngNameOfCity { get; set; }

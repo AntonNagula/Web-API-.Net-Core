@@ -54,13 +54,14 @@ namespace Data.Repositories
                             City = city.RusName,
                             EngNameOfCity = city.EngName,
                             Name = tour.Name,
-                            Quantity = tour.Quantity.ToString(),
+                            EndQuantity = tour.EndQuantity.ToString(),
+                            StartQuantity = tour.StartQuantity.ToString(),
                             NumberOfNights = tour.NumberOfNights.ToString(),
                             PriceTransfer = tour.PriceTransfer.ToString(),
                             Price = tour.Price.ToString(),
                             Markup = tour.Markup.ToString(),
-                            EndDate = tour.EndDate.ToString(),
-                            StartDate = tour.StartDate.ToString(),
+                            EndDate = tour.EndDate.ToString("dd/MM/yyyy"),
+                            StartDate = tour.StartDate.ToString("dd/MM/yyyy"),
                             PriceHotel = hotel.PricePerDay.ToString()
                         };
             return Tours.ToList().FirstOrDefault(x => x.TourId == id.ToString());
@@ -71,7 +72,7 @@ namespace Data.Repositories
                         join country in database.Countries on tour.CountryId equals country.CountryId
                         join city in database.Cities on tour.CityId equals city.CityId
                         join hotel in database.Hotels on tour.HotelId equals hotel.HotelId
-                        where tour.Quantity > 0 && tour.StartDate > DateTime.Today
+                        where tour.EndQuantity > 0 && tour.StartDate > DateTime.Today
                         select new Tour
                         {
                             CityId = city.CityId.ToString(),
@@ -83,9 +84,10 @@ namespace Data.Repositories
                             City = city.RusName,
                             EngNameOfCity = city.EngName,
                             Name = tour.Name,
-                            Quantity = tour.Quantity.ToString(),
-                            EndDate = tour.EndDate.ToString(),
-                            StartDate = tour.StartDate.ToString(),
+                            EndQuantity = tour.EndQuantity.ToString(),
+                            StartQuantity = tour.StartQuantity.ToString(),
+                            EndDate = tour.EndDate.ToString("dd/MM/yyyy"),
+                            StartDate = tour.StartDate.ToString("dd/MM/yyyy"),
                             NumberOfNights = tour.NumberOfNights.ToString(),
                             PriceTransfer = tour.PriceTransfer.ToString(),
                             Price = tour.Price.ToString(),
@@ -112,9 +114,10 @@ namespace Data.Repositories
                              City = city.RusName,
                              EngNameOfCity = city.EngName,
                              Name = tour.Name,
-                             Quantity = tour.Quantity.ToString(),
-                             EndDate = tour.EndDate.ToString(),
-                             StartDate = tour.StartDate.ToString(),
+                             EndQuantity = tour.EndQuantity.ToString(),
+                             StartQuantity = tour.StartQuantity.ToString(),
+                             EndDate = tour.EndDate.ToString("dd/MM/yyyy"),
+                             StartDate = tour.StartDate.ToString("dd/MM/yyyy"),
                              NumberOfNights = tour.NumberOfNights.ToString(),
                              PriceTransfer = tour.PriceTransfer.ToString(),
                              Price = tour.Price.ToString(),
@@ -123,7 +126,6 @@ namespace Data.Repositories
                          };
             return tours.ToList();
         }
-
         public void Update(Tour item)
         {
             int id = Int32.Parse(item.TourId);
@@ -131,6 +133,19 @@ namespace Data.Repositories
             tour.UpdateTourDB(item);
             database.Tours.Update(tour);
             database.SaveChanges();
+        }
+        private bool _disposed;
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            _disposed = true;
         }
     }
 }

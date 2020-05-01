@@ -16,12 +16,10 @@ namespace WebApi.Controllers
             this.service = service;
         }
         [HttpGet]
-        public Export<User> GetUsers()
+        public IActionResult GetUsers()
         {
             IEnumerable<User> users = service.GetUsers();
-            Export<User> obj = new Export<User>();
-            obj.obj = users;
-            return obj;
+            return Ok(users);
         }
         [HttpGet("{id}")]
         public User GetUser([FromRoute]int id)

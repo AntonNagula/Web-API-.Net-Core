@@ -20,20 +20,16 @@ namespace WebApi.Controllers
             this.service = service;
         }
         [HttpGet]
-        public Export<Tour> Get()
+        public IActionResult Get()
         {
             IEnumerable<Tour> tours = service.GetTours();
-            Export<Tour> obj = new Export<Tour>();
-            obj.obj = tours;
-            return obj;
+            return Ok(tours);
         }
         [HttpGet("actual")]
-        public Export<Tour> GetActual()
+        public IActionResult GetActual()
         {
             IEnumerable<Tour> tours = service.GetActualTour();
-            Export<Tour> obj = new Export<Tour>();
-            obj.obj = tours;
-            return obj;
+            return Ok(tours);
         }
 
         [HttpGet("{id}")]

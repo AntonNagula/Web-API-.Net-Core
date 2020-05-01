@@ -59,12 +59,10 @@ namespace Business
         {
             return database.Countries.Get(id);
         }
-
         public void UpdateCountry(Country country)
         {
             database.Countries.Update(country);
         }
-
         public bool DeleteCountry(int id)
         {
             bool hasCities = database.Countries.HasCities(id);
@@ -72,7 +70,6 @@ namespace Business
                 database.Countries.Delete(id);
             return !hasCities;
         }
-
         public void CreateCountry(Country country)
         {
             database.Countries.Create(country);
@@ -91,12 +88,10 @@ namespace Business
         {
             return database.Cities.Get(id);
         }
-
         public void UpdateCity(City city)
         {
             database.Cities.Update(city);
         }
-
         public bool DeleteCity(int id)
         {
             bool hasHotels = database.Cities.HasHotels(id);
@@ -106,7 +101,6 @@ namespace Business
             }
             return !hasHotels;
         }
-
         public void CreateCity(City city)
         {
             database.Cities.Create(city);
@@ -159,31 +153,27 @@ namespace Business
         {
             return database.Vouchers.GetAll();
         }
-
         public Voucher GetVoucher(int id)
         {
             return database.Vouchers.Get(id);
         }
-
         public void UpdateVoucher(Voucher voucher)
         {
             database.Vouchers.Update(voucher);
         }
-
         public void DeleteVoucher(int id)
         {
             database.Vouchers.Delete(id);
         }
-
         public void CreateVoucher(Voucher voucher)
         {
             database.Vouchers.Create(voucher);
             int TourId = Int32.Parse(voucher.TourId);
             Tour tour = database.Tours.Get(TourId);
-            int quantity = Int32.Parse(tour.Quantity);
+            int quantity = Int32.Parse(tour.EndQuantity);
             quantity--;
-            tour.Quantity = quantity.ToString();
-            database.Tours.Update(tour);  
+            tour.EndQuantity = quantity.ToString();
+            database.Tours.Update(tour);
         }
 
 
@@ -235,20 +225,6 @@ namespace Business
                 EngName = JsonSerializer.Deserialize<YandexTranslate>(stream.ReadToEnd()).text[0];
             }
             return EngName;
-        }
-        private string GetRusWordFromYandex(string ForTranslate)
-        {
-            string RusName;
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create("https://translate.yandex.net/api/v1.5/tr.json/translate?"
-                + "key=trnsl.1.1.20200329T092748Z.9c179a9ac941bd1f.219a18997795b43a79d3e192d553568000d7a137"
-                + "&text=" + ForTranslate
-                + "&lang=ru");
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
-            {
-                RusName = JsonSerializer.Deserialize<YandexTranslate>(stream.ReadToEnd()).text[0];
-            }
-            return RusName;
         }
         private AuthInfo MakeResponseAuthInfo(User user)
         {

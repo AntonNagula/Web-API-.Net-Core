@@ -8,7 +8,8 @@ namespace Data.Entities
     {
         public int TourId { get; set; }
         public string Name { get; set; } 
-        public int Quantity { get; set; } 
+        public int StartQuantity { get; set; }
+        public int EndQuantity { get; set; }
         public int CountryId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime StartDate { get; set; }

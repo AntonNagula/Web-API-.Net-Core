@@ -17,12 +17,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Export<Country> Get()
+        public IActionResult Get()
         {
-            IEnumerable<Country> users = service.GetCountries();
-            Export<Country> obj = new Export<Country>();
-            obj.obj = users;
-            return obj;
+            IEnumerable<Country> countries = service.GetCountries();
+            return Ok(countries);
         }
 
         [HttpGet("{id}")]

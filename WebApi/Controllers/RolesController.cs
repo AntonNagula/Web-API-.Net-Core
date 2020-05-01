@@ -20,12 +20,10 @@ namespace WebApi.Controllers
             this.service = service;
         }
         [HttpGet]
-        public Export<Role> GetRoles()
+        public IActionResult GetRoles()
         {
             IEnumerable<Role> roles = service.GetRoles();
-            Export<Role> obj = new Export<Role>();
-            obj.obj = roles;
-            return obj;
+            return Ok(roles);
         }        
     }
 }

@@ -21,12 +21,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Export<Hotel> Get()
+        public IActionResult Get()
         {
             IEnumerable<Hotel> hotels = service.GetHotels();
-            Export<Hotel> obj = new Export<Hotel>();
-            obj.obj = hotels;
-            return obj;
+            return Ok(hotels);
         }
         [HttpGet("country/{id}")]
         public Export<Hotel> GetByCountryId([FromRoute]int id)

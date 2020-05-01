@@ -21,12 +21,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Export<Voucher> Get()
+        public IActionResult Get()
         {
             IEnumerable<Voucher> vouchers = service.GetVouchers();
-            Export<Voucher> obj = new Export<Voucher>();
-            obj.obj = vouchers;
-            return obj;
+            return Ok(vouchers);
         }
 
         [HttpGet("{id}")]
