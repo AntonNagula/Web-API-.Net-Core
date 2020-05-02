@@ -16,14 +16,19 @@ namespace Data
         {
             
         }
+        public ProjectDbContext(DbContextOptions<ProjectDbContext> options)
+            : base(options)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-L7IMM92;Initial Catalog=Project;Integrated Security=True");
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            base.OnModelCreating(modelBuilder);
         }
                 
     }
