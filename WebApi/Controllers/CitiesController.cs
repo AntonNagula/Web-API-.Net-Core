@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BusinesService;
 using Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Export;
 
 namespace WebApi.Controllers
 {
@@ -21,38 +16,44 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Export<City> Get()
+        public IActionResult Get()
         {
-            IEnumerable<City> users = service.GetCities();
-            Export<City> obj = new Export<City>();
-            obj.obj = users;
-            return obj;
+            IEnumerable<City> cities = service.GetCities();
+            return Ok(cities);
+        }
+        [HttpGet("country/{id}")]
+        public IActionResult GetByCountry([FromRoute]int id)
+        {
+            IEnumerable<City> cities = service.GetCitiesByCountryId(id);
+            return Ok(cities);
         }
 
         [HttpGet("{id}")]
-        public City GetCity([FromRoute]int id)
+        public IActionResult GetCity([FromRoute]int id)
         {
-            return service.GetCity(id);
+            return Ok(service.GetCity(id));
         }
 
         [HttpPost]
         public IActionResult CreateCity([FromBody]City city)
         {
-            if (city == null)
-                return BadRequest();
             service.CreateCity(city);
-            return Created("jj",city);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public bool DeleteCity([FromRoute]int id)
+        public IActionResult DeleteCity([FromRoute]int id)
         {
-            return service.DeleteCity(id);
+            if (service.DeleteCity(id))
+                return NoContent();
+            else
+                return BadRequest(new { error = "Город содержит отели или туры связанные с ним" });
         }
         [HttpPut]
-        public void UpdateCity([FromBody]City city)
+        public IActionResult UpdateCity([FromBody]City city)
         {
             service.UpdateCity(city);
+            return Ok();
         }
     }
 }

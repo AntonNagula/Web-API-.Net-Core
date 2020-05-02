@@ -75,13 +75,11 @@ namespace Data.Repositories
                          };
             return hotels.ToList();
         }
-
         public bool HasTours(int id)
         {
             Entities.Hotel hotel = database.Hotels.Include(x => x.Tours).FirstOrDefault(x => x.HotelId == id);
             return hotel.Tours.Any();
         }
-
         public void Update(Hotel item)
         {
             int id = Int32.Parse(item.HotelId);
@@ -89,6 +87,19 @@ namespace Data.Repositories
             hotel.UpdateHotelDB(item);
             database.Hotels.Update(hotel);
             database.SaveChanges();
+        }
+        private bool _disposed;
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            _disposed = true;
         }
     }
 }

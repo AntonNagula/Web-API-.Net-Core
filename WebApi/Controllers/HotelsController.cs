@@ -21,35 +21,51 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Export<Hotel> Get()
+        public IActionResult Get()
         {
             IEnumerable<Hotel> hotels = service.GetHotels();
-            Export<Hotel> obj = new Export<Hotel>();
-            obj.obj = hotels;
-            return obj;
+            return Ok(hotels);
+        }
+        [HttpGet("country/{id}")]
+        public IActionResult GetByCountryId([FromRoute]int id)
+        {
+            IEnumerable<Hotel> hotels = service.GetHotelsByCountryId(id);
+            return Ok(hotels);
+        }
+        [HttpGet("city/{id}")]
+        public IActionResult GetByCityId([FromRoute]int id)
+        {
+            IEnumerable<Hotel> hotels = service.GetHotelsByCityId(id);
+            return Ok(hotels);
         }
 
         [HttpGet("{id}")]
-        public Hotel GetHotel([FromRoute]int id)
+        public IActionResult GetHotel([FromRoute]int id)
         {
-            return service.GetHotel(id);
+            return Ok(service.GetHotel(id));
         }
 
         [HttpPost]
-        public void CreateHotel([FromBody]Hotel hotel)
+        public IActionResult CreateHotel([FromBody]Hotel hotel)
         {
             service.CreateHotel(hotel);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public bool DeleteHotel([FromRoute]int id)
+        public IActionResult DeleteHotel([FromRoute]int id)
         {
-            return service.DeleteHotel(id);
+            bool isDeleted = service.DeleteHotel(id);
+            if (isDeleted)
+                return NoContent();
+            else
+                return BadRequest(new { error = "Отель содержит туры связанные с ним" });
         }
         [HttpPut]
-        public void UpdateHotel([FromBody]Hotel hotel)
+        public IActionResult UpdateHotel([FromBody]Hotel hotel)
         {
             service.UpdateHotel(hotel);
+            return Ok();
         }
     }
 }

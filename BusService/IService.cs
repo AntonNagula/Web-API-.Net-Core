@@ -21,12 +21,15 @@ namespace BusinesService
         void CreateCountry(Country country);
 
         IEnumerable<City> GetCities();
+        IEnumerable<City> GetCitiesByCountryId(int CountryId);
         City GetCity(int id);
         void UpdateCity(City country);
         bool DeleteCity(int id);
         void CreateCity(City country);
 
         IEnumerable<Hotel> GetHotels();
+        IEnumerable<Hotel> GetHotelsByCountryId(int id);
+        IEnumerable<Hotel> GetHotelsByCityId(int id);
         Hotel GetHotel(int id);
         void UpdateHotel(Hotel hotel);
         bool DeleteHotel(int id);
@@ -39,7 +42,9 @@ namespace BusinesService
         void CreateVoucher(Voucher voucher);
 
         IEnumerable<Tour> GetTours();
+        IEnumerable<Tour> GetActualToursByCountry(int CountryId);
         IEnumerable<Tour> GetActualTour();
+        IEnumerable<Tour> GetChoisenTours(ChoisenCriterials choisenCriterials);
         Tour GetTour(int id);
         void UpdateTour(Tour tour);
         bool DeleteTour(int id);

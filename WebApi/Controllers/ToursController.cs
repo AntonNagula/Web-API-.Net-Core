@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BusinesService;
 using Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Export;
 
 namespace WebApi.Controllers
 {
@@ -20,43 +15,55 @@ namespace WebApi.Controllers
             this.service = service;
         }
         [HttpGet]
-        public Export<Tour> Get()
+        public IActionResult Get()
         {
             IEnumerable<Tour> tours = service.GetTours();
-            Export<Tour> obj = new Export<Tour>();
-            obj.obj = tours;
-            return obj;
+            return Ok(tours);
         }
         [HttpGet("actual")]
-        public Export<Tour> GetActual()
+        public IActionResult GetActual()
         {
             IEnumerable<Tour> tours = service.GetActualTour();
-            Export<Tour> obj = new Export<Tour>();
-            obj.obj = tours;
-            return obj;
+            return Ok(tours);
         }
-
+        [HttpPost("choisen")]
+        public IActionResult GetChoisen([FromBody]ChoisenCriterials choisenCriterials)
+        {
+            IEnumerable<Tour> tours = service.GetChoisenTours(choisenCriterials);
+            return Ok(tours);
+        }
         [HttpGet("{id}")]
         public Tour GetTour([FromRoute]int id)
         {
             return service.GetTour(id);
         }
+        [HttpGet("country/{id}")]
+        public IActionResult GetTourByCountryId([FromRoute]int id)
+        {
+            IEnumerable<Tour> tours = service.GetActualToursByCountry(id);
+            return Ok(tours);
+        }
 
         [HttpPost]
-        public void CreateTour([FromBody]Tour tour)
+        public IActionResult CreateTour([FromBody]Tour tour)
         {
             service.CreateTour(tour);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public bool DeleteTour([FromRoute]int id)
+        public IActionResult DeleteTour([FromRoute]int id)
         {
-            return service.DeleteTour(id);
+            if (service.DeleteTour(id))
+                return NoContent();
+            else
+                return BadRequest(new { error = "Тур содержит связанные с ним ваучеры" });
         }
         [HttpPut("{id}")]
-        public void UpdateTour([FromBody]Tour tour)
+        public IActionResult UpdateTour([FromBody]Tour tour)
         {
             service.UpdateTour(tour);
+            return Ok();
         }
     }
 }

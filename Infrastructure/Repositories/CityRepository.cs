@@ -63,6 +63,22 @@ namespace Data.Repositories
             city.UpdateCityDB(item);
             database.Cities.Update(city);
             database.SaveChanges();
-        }        
+        }
+
+        private bool _disposed;
+
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            _disposed = true;
+        }
     }
 }

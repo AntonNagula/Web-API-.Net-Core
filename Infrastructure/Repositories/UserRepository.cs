@@ -21,31 +21,26 @@ namespace Data.Repositories
             database.Users.Add(item.ToUserDB());
             database.SaveChangesAsync();
         }
-
         public string CreateAndGetId(User item)
         {
             throw new NotImplementedException();
         }
-
         public void Delete(int id)
         {
             Entities.User user = database.Users.FirstOrDefault(x => x.UserId == id);
             database.Users.Remove(user);
             database.SaveChanges();
         }
-
         public User Get(string mail, string password)
         {            
             Entities.User user = database.Users.Include(x=>x.Role).FirstOrDefault(x => x.Email == mail && x.UserPassword == password);
             User obj = user != null ? user.ToUserApp() : new User();            
             return obj;
         }
-
         public User Get(int id)
         {
             return database.Users.Include(x => x.Role).FirstOrDefault(x => x.UserId == id).ToUserApp();
         }
-
         public IEnumerable<User> GetAll()
         {
             IEnumerable<Entities.User> usersFromDatabase = database.Users.Include(c => c.Role);
@@ -53,17 +48,14 @@ namespace Data.Repositories
             return users;
 
         }
-
         public User GetuserByAuthInfo(string login, string password)
         {
-            return (database.Users.Include(x => x.Role).FirstOrDefault(x => x.Email == login && x.UserPassword == password) ?? new Entities.User()).ToUserApp();
+            return (database.Users.Include(x => x.Role).FirstOrDefault(x => x.Email == login && x.UserPassword == password)).ToUserApp();
         }
-
         public User GetUserByNameSurname(string name, string surname)
         {
             return (database.Users.FirstOrDefault(x => x.UserName == name && x.UserSurname == surname) ?? new Entities.User()).ToUserApp();
         }
-
         public void Update(User item)
         {
             int id = Int32.Parse(item.Id);
@@ -71,6 +63,19 @@ namespace Data.Repositories
             user.UpdateUserDB(item);
             database.Users.Update(user);
             database.SaveChanges();
+        }
+        private bool _disposed;
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            _disposed = true;
         }
     }
 }

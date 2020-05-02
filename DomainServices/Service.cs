@@ -4,6 +4,7 @@ using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -58,12 +59,10 @@ namespace Business
         {
             return database.Countries.Get(id);
         }
-
         public void UpdateCountry(Country country)
         {
             database.Countries.Update(country);
         }
-
         public bool DeleteCountry(int id)
         {
             bool hasCities = database.Countries.HasCities(id);
@@ -71,7 +70,6 @@ namespace Business
                 database.Countries.Delete(id);
             return !hasCities;
         }
-
         public void CreateCountry(Country country)
         {
             database.Countries.Create(country);
@@ -82,16 +80,18 @@ namespace Business
         {
             return database.Cities.GetAll();
         }
+        public IEnumerable<City> GetCitiesByCountryId(int CountryId)
+        {
+            return database.Cities.GetAll().Where(x => x.CountryId == CountryId.ToString()).ToList();
+        }
         public City GetCity(int id)
         {
             return database.Cities.Get(id);
         }
-
         public void UpdateCity(City city)
         {
             database.Cities.Update(city);
         }
-
         public bool DeleteCity(int id)
         {
             bool hasHotels = database.Cities.HasHotels(id);
@@ -101,7 +101,6 @@ namespace Business
             }
             return !hasHotels;
         }
-
         public void CreateCity(City city)
         {
             database.Cities.Create(city);
@@ -111,6 +110,14 @@ namespace Business
         public IEnumerable<Hotel> GetHotels()
         {
             return database.Hotels.GetAll();
+        }
+        public IEnumerable<Hotel> GetHotelsByCountryId(int id)
+        {
+            return database.Hotels.GetAll().Where(x => x.CountryId == id.ToString()).ToList();
+        }
+        public IEnumerable<Hotel> GetHotelsByCityId(int id)
+        {
+            return database.Hotels.GetAll().Where(x => x.CityId == id.ToString()).ToList();
         }
         public Hotel GetHotel(int id)
         {
@@ -146,31 +153,27 @@ namespace Business
         {
             return database.Vouchers.GetAll();
         }
-
         public Voucher GetVoucher(int id)
         {
             return database.Vouchers.Get(id);
         }
-
         public void UpdateVoucher(Voucher voucher)
         {
             database.Vouchers.Update(voucher);
         }
-
         public void DeleteVoucher(int id)
         {
             database.Vouchers.Delete(id);
         }
-
         public void CreateVoucher(Voucher voucher)
         {
             database.Vouchers.Create(voucher);
             int TourId = Int32.Parse(voucher.TourId);
             Tour tour = database.Tours.Get(TourId);
-            int quantity = Int32.Parse(tour.Quantity);
+            int quantity = Int32.Parse(tour.EndQuantity);
             quantity--;
-            tour.Quantity = quantity.ToString();
-            database.Tours.Update(tour);  
+            tour.EndQuantity = quantity.ToString();
+            database.Tours.Update(tour);
         }
 
 
@@ -178,9 +181,18 @@ namespace Business
         {
             return database.Tours.GetAll();
         }
+        public IEnumerable<Tour> GetActualToursByCountry(int CountryId)
+        {
+            Country country = database.Countries.Get(CountryId);
+            return database.Tours.GetActualTours().Where(x => x.Country == country.Name).ToList();
+        }
         public IEnumerable<Tour> GetActualTour()
         {
             return database.Tours.GetActualTours();
+        }
+        public IEnumerable<Tour> GetChoisenTours(ChoisenCriterials choisenCriterials)
+        {
+            return database.Tours.GetChoisenTours(choisenCriterials);
         }
         public Tour GetTour(int id)
         {

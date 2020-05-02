@@ -9,6 +9,8 @@ namespace Core
         public string VoucherId { get; set; }
         public string UserName { get; set; }
         public string UserSurname { get; set; }
+        public string PassportSeries { get; set; }
+        public string PassportNumber { get; set; }
         public string TourId { get; set; }
         public string UserId { get; set; }
     }

@@ -21,35 +21,36 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Export<Voucher> Get()
+        public IActionResult Get()
         {
             IEnumerable<Voucher> vouchers = service.GetVouchers();
-            Export<Voucher> obj = new Export<Voucher>();
-            obj.obj = vouchers;
-            return obj;
+            return Ok(vouchers);
         }
 
         [HttpGet("{id}")]
-        public Voucher GetVoucher([FromRoute]int id)
+        public IActionResult GetVoucher([FromRoute]int id)
         {
-            return service.GetVoucher(id);
+            return Ok(service.GetVoucher(id));
         }
 
         [HttpPost]
-        public void CreateVoucher([FromBody]Voucher voucher)
+        public IActionResult CreateVoucher([FromBody]Voucher voucher)
         {
             service.CreateVoucher(voucher);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public void DeleteVoucher([FromRoute]int id)
+        public IActionResult DeleteVoucher([FromRoute]int id)
         {
             service.DeleteVoucher(id);
+            return NoContent();
         }
         [HttpPut]
-        public void UpdateVoucher([FromBody]Voucher voucher)
+        public IActionResult UpdateVoucher([FromBody]Voucher voucher)
         {
             service.UpdateVoucher(voucher);
+            return Ok();
         }
     }
 }

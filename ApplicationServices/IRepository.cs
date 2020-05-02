@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Interfaces
 {
-    public interface IRepository 
+    public interface IRepository : IDisposable
     {
+
     }
 }
