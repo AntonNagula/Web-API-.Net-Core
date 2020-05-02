@@ -190,6 +190,10 @@ namespace Business
         {
             return database.Tours.GetActualTours();
         }
+        public IEnumerable<Tour> GetChoisenTours(ChoisenCriterials choisenCriterials)
+        {
+            return database.Tours.GetChoisenTours(choisenCriterials);
+        }
         public Tour GetTour(int id)
         {
             return database.Tours.Get(id);

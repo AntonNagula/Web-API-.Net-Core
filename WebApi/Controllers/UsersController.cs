@@ -22,31 +22,34 @@ namespace WebApi.Controllers
             return Ok(users);
         }
         [HttpGet("{id}")]
-        public User GetUser([FromRoute]int id)
+        public IActionResult GetUser([FromRoute]int id)
         {
             User user = service.GetUser(id);
-            return user;
+            return Ok(user);
         }
         [HttpPost("auth")]
-        public AuthInfo Auth([FromBody]AuthInfo obj)
+        public IActionResult Auth([FromBody]AuthInfo obj)
         {
             AuthInfo response = service.GetIdentityData(obj);            
-            return response;
+            return Ok(response);
         }
         [HttpPost]
-        public void CreateUser([FromBody]User newUser)
+        public IActionResult CreateUser([FromBody]User newUser)
         {                     
-            service.CreateUser(newUser);            
+            service.CreateUser(newUser);
+            return Ok();
         }
         [HttpDelete("{id}")]
-        public void DeleteUser([FromRoute]int id)
+        public IActionResult DeleteUser([FromRoute]int id)
         {
             service.DeleteUser(id);
+            return NoContent();
         }
         [HttpPut]
-        public void UpdateUser([FromBody]User newUser)
+        public IActionResult UpdateUser([FromBody]User newUser)
         {
-            service.UpdateUser(newUser);            
+            service.UpdateUser(newUser);
+            return Ok();
         }
     }
 }

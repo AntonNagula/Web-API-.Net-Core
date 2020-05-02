@@ -66,6 +66,39 @@ namespace Data.Repositories
                         };
             return Tours.ToList().FirstOrDefault(x => x.TourId == id.ToString());
         }
+        public IEnumerable<Tour> GetChoisenTours(ChoisenCriterials choisenCriterials)
+        {
+            DateTime start = Convert.ToDateTime(choisenCriterials.StartDate + " 00:00:00");
+            DateTime end = Convert.ToDateTime(choisenCriterials.EndDate + " 23:59:59");
+            int countryId = Convert.ToInt32(choisenCriterials.CountryId);
+            var tours = from tour in database.Tours
+                        join country in database.Countries on tour.CountryId equals country.CountryId
+                        join city in database.Cities on tour.CityId equals city.CityId
+                        join hotel in database.Hotels on tour.HotelId equals hotel.HotelId
+                        where tour.EndQuantity > 0 && tour.StartDate > DateTime.Today && tour.StartDate >= start && tour.StartDate <= end && tour.CountryId == countryId 
+                        select new Tour
+                        {
+                            CityId = city.CityId.ToString(),
+                            CountryId = country.CountryId.ToString(),
+                            HotelId = hotel.HotelId.ToString(),
+                            TourId = tour.TourId.ToString(),
+                            Country = country.Name,
+                            Hotel = hotel.Name,
+                            City = city.RusName,
+                            EngNameOfCity = city.EngName,
+                            Name = tour.Name,
+                            EndQuantity = tour.EndQuantity.ToString(),
+                            StartQuantity = tour.StartQuantity.ToString(),
+                            EndDate = tour.EndDate.ToString("dd/MM/yyyy"),
+                            StartDate = tour.StartDate.ToString("dd/MM/yyyy"),
+                            NumberOfNights = tour.NumberOfNights.ToString(),
+                            PriceTransfer = tour.PriceTransfer.ToString(),
+                            Price = tour.Price.ToString(),
+                            Markup = tour.Markup.ToString(),
+                            PriceHotel = hotel.PricePerDay.ToString()
+                        };
+            return tours.ToList();
+        }
         public IEnumerable<Tour> GetActualTours()
         {
             var tours = from tour in database.Tours
@@ -96,7 +129,6 @@ namespace Data.Repositories
                         };
             return tours.ToList();
         }
-
         public IEnumerable<Tour> GetAll()
         {
             var tours = from tour in database.Tours

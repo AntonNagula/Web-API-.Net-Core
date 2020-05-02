@@ -44,6 +44,7 @@ namespace BusinesService
         IEnumerable<Tour> GetTours();
         IEnumerable<Tour> GetActualToursByCountry(int CountryId);
         IEnumerable<Tour> GetActualTour();
+        IEnumerable<Tour> GetChoisenTours(ChoisenCriterials choisenCriterials);
         Tour GetTour(int id);
         void UpdateTour(Tour tour);
         bool DeleteTour(int id);
