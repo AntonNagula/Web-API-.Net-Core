@@ -10,7 +10,7 @@ namespace BusinesService
         IEnumerable<User> GetUsers();
         User GetUser(int id);
         void UpdateUser(User user);
-        void DeleteUser(int id);
+        bool DeleteUser(int id);
         void CreateUser(User user);
 
         IEnumerable<Role> GetRoles();        

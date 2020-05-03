@@ -26,11 +26,14 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             Entities.Voucher voucher = database.Vouchers.FirstOrDefault(x => x.VoucherId == id);
+            if (voucher == null)
+                return false;
             database.Vouchers.Remove(voucher);
             database.SaveChanges();
+            return true;
         }
 
         public Voucher Get(int id)
@@ -40,7 +43,10 @@ namespace Data.Repositories
 
         public IEnumerable<Voucher> GetAll()
         {
-            return database.Vouchers.Include(x => x.User).Select(x => x.ToVoucherApp()).ToList();
+            List<Entities.Voucher> vouchers = database.Vouchers.Include(x => x.User).ToList();
+            if (vouchers.Count == 0)
+                return new List<Voucher>();
+            return vouchers.Select(x => x.ToVoucherApp()).ToList();
         }
         public IEnumerable<VoucherAndTourInfo> GetActualVouchersByUserId(int id)
         {

@@ -23,9 +23,9 @@ namespace Business
         {
             database.Users.Create(user);
         }
-        public void DeleteUser(int id)
+        public bool DeleteUser(int id)
         {
-            database.Users.Delete(id);
+            return database.Users.Delete(id);
         }
         public void UpdateUser(User user)
         {
@@ -74,8 +74,14 @@ namespace Business
         {
             bool hasCities = database.Countries.HasCities(id);
             if(!hasCities)
-                database.Countries.Delete(id);
-            return !hasCities;
+                return database.Countries.Delete(id);
+            bool hasHotels = database.Countries.HasHotels(id);
+            if (!hasHotels)
+                return database.Countries.Delete(id);
+            bool hasTours = database.Countries.HasTours(id);
+            if (!hasTours)
+                return database.Countries.Delete(id);
+            return false;
         }
         public void CreateCountry(Country country)
         {
@@ -104,9 +110,14 @@ namespace Business
             bool hasHotels = database.Cities.HasHotels(id);
             if(!hasHotels)
             {
-                database.Cities.Delete(id);
+                return database.Cities.Delete(id);
             }
-            return !hasHotels;
+            bool hasTours = database.Cities.HasTours(id);
+            if (!hasTours)
+            {
+                return database.Cities.Delete(id);
+            }
+            return false;
         }
         public void CreateCity(City city)
         {

@@ -28,11 +28,14 @@ namespace Data.Repositories
             return database.Countries.FirstOrDefault(x => x.Name == item.Name).CountryId.ToString();
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             Entities.Country country = database.Countries.FirstOrDefault(x => x.CountryId == id);
+            if (country == null)
+                return false;
             database.Countries.Remove(country);
             database.SaveChanges();
+            return true;
         }
 
         public Country Get(int id)
@@ -42,7 +45,10 @@ namespace Data.Repositories
 
         public IEnumerable<Country> GetAll()
         {
-            return database.Countries.Select(x => x.ToCountryApp()).ToList();
+            List<Entities.Country> countries = database.Countries.ToList();
+            if (countries.Count == 0)
+                return new List<Country>();
+            return countries.Select(x => x.ToCountryApp()).ToList();
         }
 
         public bool HasCities(int id)

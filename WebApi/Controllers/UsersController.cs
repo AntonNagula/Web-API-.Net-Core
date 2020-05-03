@@ -47,8 +47,11 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteUser([FromRoute]int id)
         {
-            service.DeleteUser(id);
-            return NoContent();
+            bool isDeleted = service.DeleteUser(id);
+            if (isDeleted)
+                return NoContent();
+            else
+                return BadRequest();
         }
         [HttpPut]
         public IActionResult UpdateUser([FromBody]User newUser)

@@ -25,11 +25,14 @@ namespace Data.Repositories
         {
             throw new NotImplementedException();
         }
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             Entities.Tour tour = database.Tours.FirstOrDefault(x => x.TourId == id);
+            if (tour == null)
+                return false;
             database.Tours.Remove(tour);
             database.SaveChanges();
+            return true;
         }
 
         public bool HasVouchers(int id)

@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BusService\BusinesService.csproj" />
     <ProjectReference Include="..\DomainModels\Core.csproj" />
     <ProjectReference Include="..\DomainServices\Business.csproj" />

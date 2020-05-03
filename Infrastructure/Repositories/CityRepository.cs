@@ -27,11 +27,14 @@ namespace Data.Repositories
             return database.Cities.FirstOrDefault(x => x.RusName == item.RusName).CityId.ToString();
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             Entities.City city = database.Cities.FirstOrDefault(x => x.CityId == id);
+            if (city == null)
+                return false;
             database.Cities.Remove(city);
             database.SaveChanges();
+            return true;
         }
 
         public City Get(int id)
@@ -41,7 +44,10 @@ namespace Data.Repositories
 
         public IEnumerable<City> GetAll()
         {
-            return database.Cities.Include(x => x.Country).Select(x => x.ToCityApp()).ToList();
+            IEnumerable<Entities.City> cities = database.Cities.Include(x => x.Country).ToList();
+            if (cities.Count() == 0)
+                return new List<City>();
+            return cities.Select(x => x.ToCityApp()).ToList();
         }
 
         public bool HasHotels(int id)

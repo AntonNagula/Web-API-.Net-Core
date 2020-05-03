@@ -9,7 +9,7 @@ namespace Interfaces
     {
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        bool Delete(int id);
         string CreateAndGetId(T item);
     }
 }

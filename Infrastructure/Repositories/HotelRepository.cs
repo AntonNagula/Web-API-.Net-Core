@@ -26,11 +26,14 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             Entities.Hotel hotel = database.Hotels.FirstOrDefault(x => x.HotelId == id);
+            if (hotel == null)
+                return false;
             database.Hotels.Remove(hotel);
             database.SaveChanges();
+            return true;
         }
         public Hotel Get(int id)
         {

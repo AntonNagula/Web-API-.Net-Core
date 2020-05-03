@@ -25,11 +25,14 @@ namespace Data.Repositories
         {
             throw new NotImplementedException();
         }
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             Entities.User user = database.Users.FirstOrDefault(x => x.UserId == id);
+            if (user == null)
+                return true;
             database.Users.Remove(user);
             database.SaveChanges();
+            return false;
         }
         public User Get(string mail, string password)
         {            
@@ -44,6 +47,8 @@ namespace Data.Repositories
         public IEnumerable<User> GetAll()
         {
             IEnumerable<Entities.User> usersFromDatabase = database.Users.Include(c => c.Role);
+            if (usersFromDatabase.Count() == 0)
+                return new List<User>();
             List<User> users = usersFromDatabase.Select(x=>x.ToUserApp()).ToList();
             return users;
 
