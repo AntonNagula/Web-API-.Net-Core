@@ -41,6 +41,13 @@ namespace Business
             AuthInfo response = MakeResponseAuthInfo(user);
             return response;
         }
+        public AuthInfo CreateAndGetIdentityData(User userinfo)
+        {
+            database.Users.Create(userinfo);
+            User user = database.Users.GetuserByAuthInfo(userinfo.Email, userinfo.Password);
+            AuthInfo response = MakeResponseAuthInfo(user);
+            return response;
+        }
         public IEnumerable<User> GetUsers()
         {
             return database.Users.GetAll();
@@ -153,6 +160,10 @@ namespace Business
         {
             return database.Vouchers.GetAll();
         }
+        public IEnumerable<VoucherAndTourInfo> GetVouchersByuserId(int id)
+        {
+            return database.Vouchers.GetActualVouchersByUserId(id);
+        }
         public Voucher GetVoucher(int id)
         {
             return database.Vouchers.Get(id);
@@ -163,7 +174,14 @@ namespace Business
         }
         public void DeleteVoucher(int id)
         {
-            database.Vouchers.Delete(id);
+            string tourId = database.Vouchers.Get(id).TourId;
+            database.Vouchers.Delete(id);            
+            int TourId = Int32.Parse(tourId);
+            Tour tour = database.Tours.Get(TourId);
+            int quantity = Int32.Parse(tour.EndQuantity);
+            quantity++;
+            tour.EndQuantity = quantity.ToString();
+            database.Tours.Update(tour);
         }
         public void CreateVoucher(Voucher voucher)
         {

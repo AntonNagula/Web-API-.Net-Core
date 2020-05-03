@@ -3,7 +3,6 @@ using Core;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using WebApi.Export;
 namespace WebApi.Controllers
 {
     [ApiController]
@@ -31,6 +30,12 @@ namespace WebApi.Controllers
         public IActionResult Auth([FromBody]AuthInfo obj)
         {
             AuthInfo response = service.GetIdentityData(obj);            
+            return Ok(response);
+        }
+        [HttpPost("registration")]
+        public IActionResult Registration([FromBody]User newuser)
+        {
+            AuthInfo response = service.CreateAndGetIdentityData(newuser);
             return Ok(response);
         }
         [HttpPost]

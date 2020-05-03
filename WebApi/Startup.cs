@@ -51,7 +51,7 @@ namespace WebApi
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<ITourRepository, TourRepository>();
-            services.AddTransient<IGenericRepository<Voucher>, VoucherRepository>();
+            services.AddTransient<IVoucherRepository, VoucherRepository>();
 
             services.AddDbContext<ProjectDbContext>(options =>
                options.UseSqlServer(

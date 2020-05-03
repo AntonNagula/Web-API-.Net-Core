@@ -11,6 +11,6 @@ namespace Interfaces
         IHotelRepository Hotels { get; }
         IReadRepository<Role> Roles { get; }
         ITourRepository Tours { get; }
-        IGenericRepository<Voucher> Vouchers { get; }
+        IVoucherRepository Vouchers { get; }
     }
 }

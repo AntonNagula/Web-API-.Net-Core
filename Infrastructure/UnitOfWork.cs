@@ -75,7 +75,7 @@ namespace Data
                 return tourRepository;
             }
         }
-        public IGenericRepository<Voucher> Vouchers
+        public IVoucherRepository Vouchers
         {
             get
             {

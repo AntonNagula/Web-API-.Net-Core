@@ -6,7 +6,6 @@ using BusinesService;
 using Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Export;
 
 namespace WebApi.Controllers
 {
@@ -24,6 +23,12 @@ namespace WebApi.Controllers
         public IActionResult Get()
         {
             IEnumerable<Voucher> vouchers = service.GetVouchers();
+            return Ok(vouchers);
+        }
+        [HttpGet("actual/{id}")]
+        public IActionResult GetActualVouchers([FromRoute]int id)
+        {
+            IEnumerable<VoucherAndTourInfo> vouchers = service.GetVouchersByuserId(id);
             return Ok(vouchers);
         }
 
