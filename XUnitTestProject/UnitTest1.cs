@@ -1,125 +1,190 @@
-using Business;
-using BusinesService;
-using Core;
-using Data;
-using Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Core;
 using WebApi.Controllers;
-using WebApi.Export;
 using Xunit;
+using FluentAssertions;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace XUnitTestProject
 {
-    public class UnitTest1
+    public class UnitTest1 : IntegrationTest
     {
-        private readonly ProjectDbContext context;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IService service;
-        private readonly CitiesController Citycontroller;
-        private readonly ContriesController Contrycontroller;
-        private readonly HotelsController Hotelcontroller;
-        private readonly RolesController Rolescontroller;
-        private readonly ToursController Tourcontroller;
-        private readonly UsersController Usercontroller;
-        private readonly VouchersController Vouchercontroller;
-        public UnitTest1()
+        [Fact]
+        public async Task Test1()
         {
-            context = new ProjectDbContext();
-            unitOfWork = new UnitOfWork(context);
-            service = new Service(unitOfWork);
-            Citycontroller = new CitiesController(service);
-            Contrycontroller = new ContriesController(service);
-            Hotelcontroller = new HotelsController(service);
-            Vouchercontroller = new VouchersController(service);
-            Rolescontroller = new RolesController(service);
-            Tourcontroller = new ToursController(service);
-            Usercontroller = new UsersController(service);
+            var response = await TestClient.GetAsync("api/cities");
+           
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Should().NotBeNull();
         }
         [Fact]
-        public void Test1()
-        {
-            var obj = Contrycontroller.Get() as OkObjectResult;
-            Assert.NotNull(obj);
+        public async Task Test2()
+        {            
+            var response = await TestClient.GetAsync("api/contries");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);  
+            response.Content.Should().NotBeNull();
         }
         [Fact]
-        public void Test2()
+        public async Task Test3()
         {
-            var obj = Citycontroller.Get() as OkObjectResult;
-            Assert.NotNull(obj);
+            var response = await TestClient.GetAsync("api/roles");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Should().NotBeNull();
         }
-        //[Fact]
-        //public void Test3()
-        //{
-        //    Export<Hotel> obj = Hotelcontroller.Get();
-        //    IEnumerable<Hotel> hotels = obj.obj;
-        //    Assert.NotNull(hotels);
-        //}
-        //[Fact]
-        //public void Test4()
-        //{
-        //    Export<Role> obj = Rolescontroller.GetRoles();
-        //    IEnumerable<Role> roles = obj.obj;
-        //    Assert.NotNull(roles);
-        //}
-        //[Fact]
-        //public void Test5()
-        //{
-        //    Export<Tour> tour = Tourcontroller.Get();
-        //    IEnumerable<Tour> toures = tour.obj;
-        //    Assert.NotNull(toures);
-        //}
-        //[Fact]
-        //public void Test6()
-        //{
-        //    Export<User> obj = Usercontroller.GetUsers();
-        //    IEnumerable<User> users = obj.obj;
-        //    Assert.NotNull(users);
-        //}
-        //[Fact]
-        //public void Test7()
-        //{
-        //    Export<Voucher> obj = Vouchercontroller.Get();
-        //    IEnumerable<Voucher> vouchers = obj.obj;
-        //    Assert.NotNull(vouchers);
-        //}
+        [Fact]
+        public async Task Test4()
+        {
+            var response = await TestClient.GetAsync("api/hotels");
 
-        //[Fact]
-        //public void Test8()
-        //{
-        //    City obj = Citycontroller.GetCity(1);
-        //    Assert.NotNull(obj);
-        //}
-        //[Fact]
-        //public void Test9()
-        //{
-        //    Country contry = Contrycontroller.GetContry(1);
-        //    Assert.NotNull(contry);
-        //}
-        //[Fact]
-        //public void Test10()
-        //{
-        //    Hotel hotel = Hotelcontroller.GetHotel(1);
-        //    Assert.NotNull(hotel);
-        //}
-        //[Fact]
-        //public void Test11()
-        //{
-        //    Tour tour = Tourcontroller.GetTour(1);
-        //    Assert.NotNull(tour);
-        //}
-        //[Fact]
-        //public void Test12()
-        //{
-        //    User user = Usercontroller.GetUser(1);
-        //    Assert.NotNull(user);
-        //}
-        //[Fact]
-        //public void Test13()
-        //{            
-        //    Voucher voucher = Vouchercontroller.GetVoucher(1);
-        //    Assert.NotNull(voucher);
-        //}
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Should().NotBeNull();
+        }
+        [Fact]
+        public async Task Test5()
+        {
+            var response = await TestClient.GetAsync("api/tours");
 
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Should().NotBeNull();
+        }
+        [Fact]
+        public async Task Test6()
+        {
+            var response = await TestClient.GetAsync("api/users");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Should().NotBeNull();
+        }
+        [Fact]
+        public async Task Test7()
+        {
+            var response = await TestClient.GetAsync("api/vouchers");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Should().NotBeNull();
+        }
+        [Fact]
+        public async Task Test8()
+        {
+            var response = await TestClient.GetAsync("api/hotels/1");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            Hotel hotel = await response.Content.ReadAsAsync<Hotel>();
+            hotel.CityId.Should().Be("1");
+        }
+        [Fact]
+        public async Task Test9()
+        {
+            var response = await TestClient.GetAsync("api/cities/1");
+                        
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            City city = await response.Content.ReadAsAsync<City>();
+            city.CityId.Should().Be("1");
+        }
+        [Fact]
+        public async Task Test10()
+        {
+            var response = await TestClient.GetAsync("api/contries/2");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            Country country = await response.Content.ReadAsAsync<Country>();
+            country.Name.Should().Be("Италия");
+        }
+
+        [Fact]
+        public async Task Test11()
+        {
+            var response = await TestClient.GetAsync("api/tours/1");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            Tour tour = await response.Content.ReadAsAsync<Tour>();
+            tour.Name.Should().Be("Минск-Барселон");
+        }
+        [Fact]
+        public async Task Test12()
+        {
+            var response = await TestClient.GetAsync("api/users/1");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            User user = await response.Content.ReadAsAsync<User>();
+            user.Email.Should().Be("anton@mail.ru");
+        }
+        [Fact]
+        public async Task Test13()
+        {
+            var response = await TestClient.GetAsync("api/vouchers/2");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            Voucher voucher = await response.Content.ReadAsAsync<Voucher>();
+            voucher.TourId.Should().Be("2");
+        }
+        [Fact]
+        public async Task Test14()
+        {
+            var response = await TestClient.DeleteAsync("api/vouchers/2");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+        [Fact]
+        public async Task Test15()
+        {
+            var response = await TestClient.DeleteAsync("api/tours/3");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+        [Fact]
+        public async Task Test16()
+        {
+            var response = await TestClient.DeleteAsync("api/users/5");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+        [Fact]
+        public async Task Test17()
+        {
+            var cities1 = await TestClient.GetAsync("api/cities");
+            List<City> cities_list1 = await cities1.Content.ReadAsAsync<List<City>>();
+            var response = await TestClient.PostAsync("api/cities", new StringContent(JsonConvert.SerializeObject(new City { CountryId = "1", RusName = "Мадрид" }), Encoding.UTF8, "application/json"));
+
+            var cities2 = await TestClient.GetAsync("api/cities");
+
+
+            List<City> cities_list2 = await cities2.Content.ReadAsAsync<List<City>>();
+
+            Assert.Equal(cities_list1.Count + 1, cities_list2.Count);
+        }
+        [Fact]
+        public async Task Test18()
+        {
+            var response = await TestClient.DeleteAsync("api/hotels/1");
+
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+        [Fact]
+        public async Task Test19()
+        {
+            var response = await TestClient.DeleteAsync("api/hotels/3");
+
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+        [Fact]
+        public async Task Test20()
+        {
+            var response1 = await TestClient.GetAsync("api/contries");
+            response1.StatusCode.Should().Be(HttpStatusCode.OK);
+            List<Country> countries_list1 = await response1.Content.ReadAsAsync<List<Country>>();
+            var response2 = await TestClient.DeleteAsync("api/contries/11");
+            var response3 = await TestClient.GetAsync("api/contries");
+            response3.StatusCode.Should().Be(HttpStatusCode.OK);
+            List<Country> countries_list3 = await response3.Content.ReadAsAsync<List<Country>>();
+
+            Assert.Equal(countries_list1.Count-1,countries_list3.Count);
+        }
     }
 }
