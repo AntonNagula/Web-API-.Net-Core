@@ -4,6 +4,7 @@ namespace Data
 {
     public class ProjectDbContext : DbContext
     {
+        bool isTest = false;
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Country> Countries { get; set; }
@@ -14,7 +15,7 @@ namespace Data
 
         public ProjectDbContext()
         {
-            
+            isTest = true;
         }
         public ProjectDbContext(DbContextOptions<ProjectDbContext> options)
             : base(options)
@@ -23,7 +24,8 @@ namespace Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            if(isTest)
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-L7IMM92;Initial Catalog=Project;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
