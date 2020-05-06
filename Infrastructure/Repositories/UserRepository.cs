@@ -55,7 +55,9 @@ namespace Data.Repositories
         }
         public User GetuserByAuthInfo(string login, string password)
         {
-            return (database.Users.Include(x => x.Role).FirstOrDefault(x => x.Email == login && x.UserPassword == password)).ToUserApp();
+            Entities.User datauser = database.Users.Include(x => x.Role).FirstOrDefault(x => x.Email == login && x.UserPassword == password);
+            User user = datauser != null ? datauser.ToUserApp() : new User();
+            return user;
         }
         public User GetUserByNameSurname(string name, string surname)
         {

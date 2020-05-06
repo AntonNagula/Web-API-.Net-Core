@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    network_mode: "host"
+    build:
+      context: .
+      dockerfile: WebApi/Dockerfile
+  dbase:
+    image: dbase
+    network_mode: "host"
